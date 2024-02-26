@@ -1,5 +1,5 @@
 import { Box, HStack } from "@yamada-ui/layouts";
-import { Logo } from "./logo";
+import { Logo } from "./Logo";
 
 export const Header = () => {
   return (
@@ -22,15 +22,15 @@ export const Header = () => {
         </Box>
         <HStack
           width="300px"
-          height="100%"
+          height="calc(8rem - 3px)"
           position="absolute"
           right="0px"
           justifyContent="space-between"
           paddingRight="5rem"
         >
-          <Box>my page</Box>
-          <Box>設定</Box>
-          <Box>設定</Box>
+          <Box>My page</Box>
+          <Box>Setting</Box>
+          <Box>Menu</Box>
         </HStack>
       </HStack>
     </Box>
