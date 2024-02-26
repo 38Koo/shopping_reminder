@@ -10,6 +10,7 @@ import {
   ListItem,
   Text,
 } from "@yamada-ui/react";
+import Link from "next/link";
 
 type CardItemItem = {
   list: string;
@@ -39,9 +40,11 @@ export const CardItem = ({ list }: CardItemItem) => {
         </List>
       </CardBody>
       <CardFooter display="flex" justifyContent="end">
-        <Button bg="primary" color="white">
-          Edit
-        </Button>
+        <Link href="/1/edit">
+          <Button as="span" bg="primary" color="white">
+            Edit
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
