@@ -1,5 +1,5 @@
 import { Box, Button, HStack, Stack } from "@yamada-ui/react";
-import { CreateFormItem } from "../CreateFormItem";
+import { CommonFormItem } from "../../Common/CommonFormItem";
 
 export const CreateFormGroup = () => {
   return (
@@ -18,21 +18,21 @@ export const CreateFormGroup = () => {
         bgColor="#A5C5E2"
       >
         <Box padding="30px">
-          <CreateFormItem title="品名">
+          <CommonFormItem title="品名">
             <Box></Box>
-          </CreateFormItem>
-          <CreateFormItem title="在庫数">
+          </CommonFormItem>
+          <CommonFormItem title="在庫数">
             <Box></Box>
-          </CreateFormItem>
-          <CreateFormItem title="購入日">
+          </CommonFormItem>
+          <CommonFormItem title="購入日">
             <Box></Box>
-          </CreateFormItem>
-          <CreateFormItem title="次回購入日">
+          </CommonFormItem>
+          <CommonFormItem title="次回購入日">
             <Box></Box>
-          </CreateFormItem>
-          <CreateFormItem title="備考">
+          </CommonFormItem>
+          <CommonFormItem title="備考">
             <Box></Box>
-          </CreateFormItem>
+          </CommonFormItem>
         </Box>
         <HStack justifyContent="end" pr="30px">
           <Box position="relative" width="auto">

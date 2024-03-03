@@ -5,7 +5,7 @@ type CreateFormItemProps = {
   children: React.ReactNode;
 };
 
-export const CreateFormItem = ({ title, children }: CreateFormItemProps) => {
+export const CommonFormItem = ({ title, children }: CreateFormItemProps) => {
   return (
     <Box position="relative">
       <Stack height="100px" justifyContent="center">
