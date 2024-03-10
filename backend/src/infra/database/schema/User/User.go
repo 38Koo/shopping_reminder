@@ -1,4 +1,4 @@
-package main
+package User
 
 import (
 	"time"
@@ -13,6 +13,6 @@ type User struct {
     Email      string      `bun:"email,notnull"`
 		UUID       string      `bun:"uuid,notnull"`
 		CreatedAt  time.Time   
-		UpdatedAt  time.Time   `bun:"nullzero"`
-		DeletedAt  time.Time   `bun:"soft_delete,nullzero"`
+		UpdatedAt  time.Time   `bun:",nullzero"`
+		DeletedAt  time.Time   `bun:",soft_delete,nullzero"`
 }
