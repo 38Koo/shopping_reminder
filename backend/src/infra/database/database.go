@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"shopping_reminder/src/infra/database/schema/Item"
 	"shopping_reminder/src/infra/database/schema/User"
 
 	"github.com/labstack/echo/v4"
@@ -16,7 +18,11 @@ import (
 )
 
 func main() {
-	sqlDB, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	dbName := os.Getenv("POSTGRES_DB")
+	dbUserName := os.Getenv("POSTGRES_USER")
+	dbPassword := os.Getenv("POSTGRES_PASSWORD")
+	connStr := fmt.Sprintf("host=db user=%s password=%s dbname=%s sslmode=disable", dbUserName,dbPassword, dbName)
+	sqlDB, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,6 +38,11 @@ func main() {
 
 	ctx := context.Background()
 	_, err = db.NewCreateTable().Model((*User.User)(nil)).IfNotExists().Exec(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = db.NewCreateTable().Model((*Item.Item)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
