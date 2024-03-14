@@ -12,4 +12,3 @@ RUN go mod download && go mod verify
 COPY ./src .
 
 CMD ["go", "run", "src/infra/database/database.go"]
-# CMD ["sh", "-c", "ls && go run src/infra/database/database.go"]

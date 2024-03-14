@@ -18,7 +18,6 @@ import (
 )
 
 func main() {
-	// sqlDB, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	dbName := os.Getenv("POSTGRES_DB")
 	dbUserName := os.Getenv("POSTGRES_USER")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
