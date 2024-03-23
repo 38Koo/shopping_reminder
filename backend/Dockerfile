@@ -1,5 +1,5 @@
 FROM golang:1.21-alpine
-RUN apk update && apk add git && apk add --no-cache go
+RUN apk update && apk add git && apk add --no-cache go && apk add --no-cache curl
 WORKDIR /usr/local
 
 # Copy go mod and sum files 

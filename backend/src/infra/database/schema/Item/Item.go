@@ -14,6 +14,7 @@ type Item struct {
 		LastPurchaseDate  time.Time   `bun:"lastpurchasedate"`
 		UsageDuration     int32       `bun:"usageduration"`
 		CreatedAt         time.Time   
-		UpdatedAt         time.Time   `bun:"nullzero"`
-		DeletedAt         time.Time   `bun:"soft_delete,nullzero"`
+		UpdatedAt         time.Time   `bun:",nullzero"`
+		DeletedAt         time.Time   `bun:",soft_delete,nullzero"`
+		UserID            int64       `bun:user_id`
 }
