@@ -16,4 +16,5 @@ type Item struct {
 		CreatedAt         time.Time   
 		UpdatedAt         time.Time   `bun:",nullzero"`
 		DeletedAt         time.Time   `bun:",soft_delete,nullzero"`
+		UserID 						int64 			`bun:user_id`
 }

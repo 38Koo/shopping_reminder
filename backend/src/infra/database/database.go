@@ -54,7 +54,7 @@ func main() {
 		var items []Item.Item
 		ctx := context.Background()
 		// TODO: where句の追加
-		err := db.NewSelect().Model(&items).Order("created_at").Scan(ctx)
+		err := db.NewSelect().Model(&items).Where("user_id", 3).Order("created_at").Scan(ctx)
 		if err != nil {
 			e.Logger.Error(err)
 			return c.JSON(http.StatusBadRequest,  map[string]string{"error": err.Error()})
