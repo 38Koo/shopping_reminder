@@ -1,13 +1,13 @@
-package main
+package seeder
 
 import (
 	"database/sql"
 	"fmt"
 	"log"
 	"os"
-	"shopping_reminder/src/infra/database/schema/User"
 	"time"
 
+	schema "github.com/38Koo/shopping_reminder/infra/database/schema"
 	_ "github.com/lib/pq"
 )
 
@@ -23,7 +23,7 @@ func main() {
 	}
 	defer sqlDB.Close()
 
-	users := []User.User{
+	users := []schema.User{
 		{Name: "test1", Email: "test1", UUID: "UUID1", CreatedAt: time.Now(),  },
 		{Name: "test2", Email: "test2", UUID: "UUID2", CreatedAt: time.Now(),  },
 	}

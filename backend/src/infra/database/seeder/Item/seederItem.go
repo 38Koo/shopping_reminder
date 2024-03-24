@@ -1,17 +1,18 @@
-package main
+package seeder
 
 import (
 	"database/sql"
 	"fmt"
 	"log"
 	"os"
-	"shopping_reminder/src/infra/database/schema/Item"
+
 	"time"
 
+	schema "github.com/38Koo/shopping_reminder/infra/database/schema"
 	_ "github.com/lib/pq"
 )
 
-func main() {
+func ItemSeeder() {
 	dbName := os.Getenv("POSTGRES_DB")
 	dbUserName := os.Getenv("POSTGRES_USER")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
@@ -23,7 +24,7 @@ func main() {
 	}
 	defer sqlDB.Close()
 
-	items := []Item.Item{
+	items := []schema.Item{
 		{Name: "test1", Stock: 1, LastPurchaseDate: time.Now(), UsageDuration: 2, CreatedAt: time.Now()},
 		{Name: "test2", Stock: 1, LastPurchaseDate: time.Now(), UsageDuration: 2, CreatedAt: time.Now()},
 	}
