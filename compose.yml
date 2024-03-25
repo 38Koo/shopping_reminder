@@ -14,7 +14,7 @@ services:
       - db
     volumes:
       - type: bind
-        source: ./backend
+        source: ./
         target: /usr/local
     networks:
       - shopping_reminder_default
