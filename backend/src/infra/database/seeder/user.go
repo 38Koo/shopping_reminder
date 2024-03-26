@@ -5,14 +5,13 @@ import (
 	"fmt"
 	"log"
 	"os"
-
 	"time"
 
-	schema "github.com/38Koo/shopping_reminder/infra/database/schema"
+	schema "github.com/38Koo/shopping_reminder/backend/src/infra/database/schema"
 	_ "github.com/lib/pq"
 )
 
-func ItemSeeder() {
+func main() {
 	dbName := os.Getenv("POSTGRES_DB")
 	dbUserName := os.Getenv("POSTGRES_USER")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
@@ -24,13 +23,13 @@ func ItemSeeder() {
 	}
 	defer sqlDB.Close()
 
-	items := []schema.Item{
-		{Name: "test1", Stock: 1, LastPurchaseDate: time.Now(), UsageDuration: 2, CreatedAt: time.Now()},
-		{Name: "test2", Stock: 1, LastPurchaseDate: time.Now(), UsageDuration: 2, CreatedAt: time.Now()},
+	users := []schema.User{
+		{Name: "test1", Email: "test1", UUID: "UUID1", CreatedAt: time.Now(),  },
+		{Name: "test2", Email: "test2", UUID: "UUID2", CreatedAt: time.Now(),  },
 	}
 
-	for _, item := range items {
-		_, err := sqlDB.Exec("INSERT INTO items (name, Stock, LastPurchaseDate, UsageDuration) VALUES ($1, $2, $3, $4)", item.Name, item.Stock, item.LastPurchaseDate, item.UsageDuration)
+	for _, user := range users {
+		_, err := sqlDB.Exec("INSERT INTO users (name, email, uuid) VALUES ($1, $2, $3)", user.Name, user.Email, user.UUID)
 		if err != nil {
 			log.Fatal(err)
 		}

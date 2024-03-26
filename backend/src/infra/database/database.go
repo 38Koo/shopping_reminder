@@ -1,23 +1,20 @@
-package main
+package db
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
-	"shopping_reminder/src/infra/database/schema/Item"
-	"shopping_reminder/src/infra/database/schema/User"
 
-	"github.com/labstack/echo/v4"
+	"github.com/38Koo/shopping_reminder/backend/src/infra/database/schema"
 	_ "github.com/lib/pq"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/extra/bundebug"
 )
 
-func main() {
+func SetUpDB() *bun.DB {
 	dbName := os.Getenv("POSTGRES_DB")
 	dbUserName := os.Getenv("POSTGRES_USER")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
@@ -36,31 +33,22 @@ func main() {
 		bundebug.FromEnv("BUNDEBUG"),
 	))
 
+	return db
+	// e.Logger.Fatal(e.Start(":8989"))
+}
+
+func CreateTable() {
+	db := SetUpDB()
+
 	ctx := context.Background()
-	_, err = db.NewCreateTable().Model((*User.User)(nil)).IfNotExists().Exec(ctx)
+	
+	_, err := db.NewCreateTable().Model((*schema.User)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	_, err = db.NewCreateTable().Model((*Item.Item)(nil)).IfNotExists().Exec(ctx)
+	 
+	_, err = db.NewCreateTable().Model((*schema.Item)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	e := echo.New()
-
-	// 一覧取得
-	e.GET("/", func(c echo.Context) error {
-		var items []Item.Item
-		ctx := context.Background()
-		// TODO: where句の追加
-		err := db.NewSelect().Model(&items).Where("user_id", 3).Order("created_at").Scan(ctx)
-		if err != nil {
-			e.Logger.Error(err)
-			return c.JSON(http.StatusBadRequest,  map[string]string{"error": err.Error()})
-		}
-		return c.JSON(http.StatusOK, items)
-	})
-
-	e.Logger.Fatal(e.Start(":8989"))
 }
