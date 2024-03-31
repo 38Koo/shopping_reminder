@@ -5,34 +5,34 @@ services:
     build:
       context: ./backend
       dockerfile: ./Dockerfile
-    env_file:
-      - ./backend/.env
+    # env_file:
+    #   - ./backend/.env
     tty: true
     ports:
       - 8080:8080
       - 8989:8989
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     volumes:
       - type: bind
         source: ./
         target: /usr/local
-    networks:
-      - shopping_reminder_default
-  db:
-    image: postgres:13
-    env_file:
-      - .env
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - ./postgresql/init.sql:/docker-entrypoint-initdb.d
-    networks:
-      - shopping_reminder_default
-    ports:
-      - "5432:5432"
-networks:
-  shopping_reminder_default:
-    external: true
+    # networks:
+    #   - shopping_reminder_default
+  # db:
+  #   image: postgres:13
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #   volumes:
+  #     - ./postgresql/init.sql:/docker-entrypoint-initdb.d
+  #   networks:
+  #     - shopping_reminder_default
+  #   ports:
+  #     - "5432:5432"
+# networks:
+#   shopping_reminder_default:
+#     external: true
