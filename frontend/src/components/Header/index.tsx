@@ -1,7 +1,12 @@
 import { Box, HStack } from "@yamada-ui/layouts";
 import { Logo } from "./Logo";
+import { SignOutButton } from "@clerk/nextjs";
+import { Button } from "@yamada-ui/react";
+import { useRouter } from "next/router";
 
 export const Header = () => {
+  const router = useRouter();
+
   return (
     <Box
       height="8rem"
@@ -31,6 +36,19 @@ export const Header = () => {
           <Box>My page</Box>
           <Box>Setting</Box>
           <Box>Menu</Box>
+          <Box>
+            <SignOutButton>
+              <Button
+                p="md"
+                rounded="4"
+                bg="primary"
+                color="white"
+                onClick={() => router.push("/")}
+              >
+                Sign Out
+              </Button>
+            </SignOutButton>
+          </Box>
         </HStack>
       </HStack>
     </Box>
