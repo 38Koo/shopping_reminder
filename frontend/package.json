@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^5.0.0",
     "@clerk/nextjs": "^4.29.7",
     "@yamada-ui/react": "^1.2.6",
     "next": "14.1.0",

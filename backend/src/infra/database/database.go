@@ -26,7 +26,6 @@ func SetUpDB() *bun.DB {
 	defer sqlDB.Close()
 
 	db := bun.NewDB(sqlDB, pgdialect.New())
-	defer db.Close()
 
 	db.AddQueryHook(bundebug.NewQueryHook(
 		// bundebug.WithVerbose(true)
