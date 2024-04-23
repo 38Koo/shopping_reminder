@@ -23,7 +23,6 @@ func SetUpDB() *bun.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer sqlDB.Close()
 
 	db := bun.NewDB(sqlDB, pgdialect.New())
 
@@ -33,7 +32,6 @@ func SetUpDB() *bun.DB {
 	))
 
 	return db
-	// e.Logger.Fatal(e.Start(":8989"))
 }
 
 func CreateTable() {
