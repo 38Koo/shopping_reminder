@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Card } from "../../components/Card";
-import { currentUser, useAuth, useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 
 export default function ListPage() {
   const { getToken } = useAuth();
@@ -26,6 +26,7 @@ export default function ListPage() {
         console.error("Failed to fetch:", error);
       }
     };
+
     getLists();
   }, []);
   return <Card />;
