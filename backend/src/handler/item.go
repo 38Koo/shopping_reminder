@@ -15,10 +15,10 @@ import (
 func GetItems(c echo.Context) error {
 	db := db.SetUpDB()
 	defer db.Close()
-	
+
 	claims, ok := clerk.SessionFromContext(c.Request().Context())
 	if !ok {
-    return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized!"})
+  	return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized"})
 	}
 
 	userID := claims.Subject
