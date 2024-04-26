@@ -39,6 +39,11 @@ func newRouter() *echo.Echo {
 	injectActiveSession := clerk.WithSessionV2(client)
 
 	api.Use(echo.WrapMiddleware(injectActiveSession))
+
+	// 初回ユーザー登録
+	api.POST("/webhook/create", handler.CreateUser)
+
+	// リスト取得
 	api.GET("/list", handler.GetItems)
 
 	return e
