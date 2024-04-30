@@ -73,7 +73,7 @@ func CreateUser(c echo.Context) error {
 	data := evt["data"].(map[string]interface{})
 	emailAddressData := data["email_addresses"].([]interface{})
 	firstEmailAddressData := emailAddressData[0].(map[string]interface{})
-	userId := firstEmailAddressData["id"].(string)
+	userId := data["id"].(string)
 	email := firstEmailAddressData["email_address"].(string)
 	
 
