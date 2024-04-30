@@ -1,4 +1,4 @@
-import { Box, HStack, Stack, Text } from "@yamada-ui/react";
+import { Box, HStack } from "@yamada-ui/react";
 import { SectionHeader } from "../SectionHeader";
 import { EditFormGroup } from "./EditFormGroup";
 import { EditGraph } from "./EditGraph";
