@@ -11,6 +11,10 @@ export const Header = () => {
     <Box
       height="8rem"
       width="full"
+      position="sticky"
+      zIndex={1000}
+      top={0}
+      bgColor={"white"}
       _before={{
         content: "''",
         position: "absolute",

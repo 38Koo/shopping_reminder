@@ -1,16 +1,22 @@
-import { Box, Grid, SimpleGrid } from "@yamada-ui/react";
+import { Box, SimpleGrid } from "@yamada-ui/react";
 import { CardItem } from "../CardItem";
+import { CardItemType } from "../types/CardItemType";
 
 type CardGroupProps = {
-  lists: string[];
+  list: CardItemType[];
 };
 
-export const CardGroup = ({ lists }: CardGroupProps) => {
+export const CardGroup = ({ list }: CardGroupProps) => {
   return (
     <Box width="calc(100% - 6rem)">
-      <SimpleGrid width="100%" columns={{ base: 4, md: 1 }} paddingY="10px">
-        {lists.map((list, index) => {
-          return <CardItem key={index} list={list} />;
+      <SimpleGrid
+        width="100%"
+        columns={{ base: 4, md: 1 }}
+        paddingY="10px"
+        gap="md"
+      >
+        {list.map((item, index) => {
+          return <CardItem key={index} item={item} />;
         })}
       </SimpleGrid>
     </Box>
