@@ -1,11 +1,11 @@
 import { SectionHeader } from "../SectionHeader";
-import { CreateFormGroup } from "./CreateFormGroup";
+import { AddFormGroup } from "./AddFormGroup";
 
-export const Create = () => {
+export const Add = () => {
   return (
     <>
       <SectionHeader title="新規アイテム登録" />
-      <CreateFormGroup />
+      <AddFormGroup />
     </>
   );
 };

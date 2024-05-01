@@ -11,11 +11,15 @@
   "dependencies": {
     "@clerk/clerk-js": "^5.0.0",
     "@clerk/nextjs": "^4.29.7",
+    "@hookform/resolvers": "^3.3.4",
+    "@yamada-ui/calendar": "^1.2.12",
     "@yamada-ui/react": "^1.2.6",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "zod": "^3.22.4"
+    "react-hook-form": "^7.51.3",
+    "swr": "^2.2.5",
+    "zod": "^3.23.4"
   },
   "devDependencies": {
     "@types/node": "^20",
