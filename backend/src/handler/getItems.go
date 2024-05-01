@@ -21,13 +21,13 @@ func GetItems(c echo.Context) error {
   	return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized"})
 	}
 
-	userID := claims.Subject
+	userUID := claims.Subject
 
 	ctx := context.Background()
 	var user schema.User
 	var items []schema.Item
 
-	err := db.NewSelect().Model((&user)).Where("uuid = ?", userID).Scan(ctx);
+	err := db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx);
 	if err != nil {
 		log.Fatal(err)
 	}
