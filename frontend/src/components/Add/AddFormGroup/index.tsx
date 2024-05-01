@@ -9,12 +9,15 @@ import {
 } from "@yamada-ui/react";
 import { Controller, Form, useForm } from "react-hook-form";
 import { DatePicker } from "@yamada-ui/calendar";
-import { AddFormType } from "./types/addFormType";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { AddFromType, addFormSchema } from "./types/addFormType";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const AddFormGroup = () => {
-  const { register, control, watch, setValue } = useForm<AddFormType>();
+  const { register, control, watch, setValue } = useForm<AddFromType>({
+    resolver: zodResolver(addFormSchema),
+  });
   const [token, setToken] = useState<string | null>("");
 
   const { getToken } = useAuth();
