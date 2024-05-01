@@ -11,17 +11,18 @@ import {
   Text,
 } from "@yamada-ui/react";
 import Link from "next/link";
+import { CardItemType } from "../types/CardItemType";
 
 type CardItemItem = {
-  list: string;
+  item: CardItemType;
 };
 
-export const CardItem = ({ list }: CardItemItem) => {
+export const CardItem = ({ item }: CardItemItem) => {
   return (
     <Card size="md" width="300px" height="400px">
       <CardHeader>
         <Heading as="h3" size="md">
-          {list}
+          {item.Name}
         </Heading>
       </CardHeader>
       <CardBody>
