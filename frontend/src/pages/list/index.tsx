@@ -1,33 +1,15 @@
-import { useEffect } from "react";
 import { Card } from "../../components/Card";
-import { useAuth } from "@clerk/nextjs";
+import { CardNoItem } from "../../components/Card/CardNoItem";
+import { getItemList } from "../../components/Card/handlers/getItemList";
+import { SectionHeader } from "../../components/SectionHeader";
 
 export default function ListPage() {
-  const { getToken } = useAuth();
+  const { data } = getItemList();
 
-  useEffect(() => {
-    const getLists = async () => {
-      try {
-        const token = await getToken();
-
-        const response = await fetch("http://localhost:8989/api/list", {
-          headers: { Authorization: `Bearer ${token}` },
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        // レスポンス処理
-        const data = await response.json();
-
-        console.log(data);
-      } catch (error) {
-        console.error("Failed to fetch:", error);
-      }
-    };
-
-    getLists();
-  }, []);
-  return <Card />;
+  return (
+    <>
+      <SectionHeader title="日用品一覧" />
+      {data ? <Card list={data} /> : <CardNoItem />}
+    </>
+  );
 }

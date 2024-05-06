@@ -46,5 +46,8 @@ func newRouter() *echo.Echo {
 	// リスト取得
 	api.GET("/list", handler.GetItems)
 
+	// アイテム追加
+	api.POST("/add/item", handler.AddItem)
+
 	return e
 }

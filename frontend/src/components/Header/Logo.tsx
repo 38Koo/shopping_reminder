@@ -1,9 +1,9 @@
-import { Box } from "@yamada-ui/layouts";
+import { Text } from "@yamada-ui/react";
 
 export const Logo = () => {
   return (
-    <Box width="50px" height="50px">
+    <Text width="50px" height="50px">
       リマインダー
-    </Box>
+    </Text>
   );
 };

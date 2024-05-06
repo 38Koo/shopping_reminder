@@ -3,7 +3,6 @@ package handler
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -16,20 +15,7 @@ import (
 	svix "github.com/svix/svix-webhooks/go"
 )
 
-
-type EmailAddress struct {
-	ID            string `json:"id"`
-	EmailAddress  string `json:"emailAddress"`
-}
-
-type UserDetailsForClerk struct {
-	ID    string `json:"id"`
-	Email []EmailAddress `json:"emailAddresses"`
-	Name  string `json:"username"`
-}
-
 func CreateUser(c echo.Context) error {
-	fmt.Println("CreateUser")
 	webhookSecret := os.Getenv("WEBHOOK_SECRET")
 
 	// Headerからsvixデータを取得
@@ -45,7 +31,6 @@ func CreateUser(c echo.Context) error {
 	reqBody, err := io.ReadAll(c.Request().Body)
 	if err != nil {
 		return err
-		
 	}
 
 	webHook, err := svix.NewWebhook(webhookSecret)
@@ -73,23 +58,22 @@ func CreateUser(c echo.Context) error {
 	data := evt["data"].(map[string]interface{})
 	emailAddressData := data["email_addresses"].([]interface{})
 	firstEmailAddressData := emailAddressData[0].(map[string]interface{})
-	userId := data["id"].(string)
+	userUID := firstEmailAddressData["id"].(string)
 	email := firstEmailAddressData["email_address"].(string)
-	
 
 	externalAccountsData := data["external_accounts"].([]interface{})
 	firstExternalAccountData := externalAccountsData[0].(map[string]interface{})
 	name := firstExternalAccountData["family_name"].(string) + firstExternalAccountData["given_name"].(string)
 
 	user := &schema.User{
-    UUID: userId,
+    UUID: userUID,
     Name: name,
     Email: email,
     CreatedAt: time.Now(),
 	}
 	
 	_, err = db.NewInsert().Model(user).Exec(ctx, &schema.User{
-		UUID: userId,
+		UUID: userUID,
 		Name: name,
 		Email: email,
 		CreatedAt: time.Now(),
