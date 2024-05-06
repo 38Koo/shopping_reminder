@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -21,7 +20,6 @@ func AddItem(c echo.Context) error {
 
 	claims, ok := clerk.SessionFromContext(c.Request().Context())
 	if !ok {
-		fmt.Println("12331234523452345mid")
 		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized"})
 	}
 
@@ -29,14 +27,14 @@ func AddItem(c echo.Context) error {
 	stockCountStr := c.FormValue("stockCount")
 	stockCount, err := strconv.Atoi(stockCountStr)
 	if err != nil {
-		log.Fatal(err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "stockCount is invalid"})
 	}
 	purchaseDateStr := c.FormValue("purchaseDate")
 	const layout = "Mon Jan 02 2006 15:04:05 GMT-0700"
 	purchaseDateStr = strings.Split(purchaseDateStr, " (")[0] // タイムゾーンの名前を削除
 	purchaseDate, err := time.Parse(layout, purchaseDateStr)
 	if err != nil {
-		log.Fatal(err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "purchaseDate is invalid"})
 	}
 	// memo := c.FormValue("memo")
 
@@ -47,7 +45,7 @@ func AddItem(c echo.Context) error {
 	// ユーザーIDの取得
 	err = db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx)
 	if err != nil {
-		log.Fatal(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
 	item := &schema.Item{
