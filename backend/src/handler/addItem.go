@@ -2,9 +2,9 @@ package handler
 
 import (
 	"context"
-	"log"
+	"database/sql"
+	"fmt"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 
@@ -23,20 +23,20 @@ func AddItem(c echo.Context) error {
 		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized"})
 	}
 
-	itemName := c.FormValue("itemName")
-	stockCountStr := c.FormValue("stockCount")
-	stockCount, err := strconv.Atoi(stockCountStr)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"message": "stockCount is invalid"})
+	var item *schema.Item
+	if err := c.Bind(&item);err != nil {
+		fmt.Println(err)
+		return err
 	}
-	purchaseDateStr := c.FormValue("purchaseDate")
+
 	const layout = "Mon Jan 02 2006 15:04:05 GMT-0700"
-	purchaseDateStr = strings.Split(purchaseDateStr, " (")[0] // タイムゾーンの名前を削除
+	purchaseDateStr := item.LastPurchaseDate.Format(layout)
+	purchaseDateStr = strings.Split(purchaseDateStr, " (")[0]
 	purchaseDate, err := time.Parse(layout, purchaseDateStr)
 	if err != nil {
+		fmt.Println(err)
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": "purchaseDate is invalid"})
 	}
-	// memo := c.FormValue("memo")
 
 	userUID := claims.Subject
 	ctx := context.Background()
@@ -45,19 +45,39 @@ func AddItem(c echo.Context) error {
 	// ユーザーIDの取得
 	err = db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx)
 	if err != nil {
+		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
-	item := &schema.Item{
-		UserID: user.ID,
-    Name: itemName,
-    Stock: int32(stockCount),
+	// userID毎のitemIDの最大値を取得
+	var maxItemID schema.Item
+	err = db.NewSelect().Model(&maxItemID).Where("user_id = ?", user.ID).Order("user_item_id DESC").Limit(1).Scan(ctx)
+	if err != nil {
+		if err.Error() == sql.ErrNoRows.Error() {
+			maxItemID.UserItemID = 0
+		} else {
+			fmt.Println(err)
+			return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
+		}
+	}
+
+	if maxItemID.UserItemID == 0 {
+		maxItemID.UserItemID = 1
+	}
+
+	item = &schema.Item{
+		Name: item.Name,
+		Stock: item.Stock,
     LastPurchaseDate: purchaseDate,
+		Memo: item.Memo,
+		UserID: user.ID,
+		UserItemID: maxItemID.UserItemID + 1,
 	}
 
 	_, err = db.NewInsert().Model(item).Exec(ctx)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
 	return c.JSON(http.StatusOK, nil)
