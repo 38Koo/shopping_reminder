@@ -9,7 +9,7 @@ export const Edit = () => {
       <SectionHeader title="Edit" />
       <HStack height="700px" justifyContent="space-between" paddingX="50px">
         <EditFormGroup />
-        <EditGraph />
+        {/* <EditGraph /> */}
       </HStack>
     </Box>
   );

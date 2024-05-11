@@ -134,7 +134,6 @@ export const EditFormGroup = () => {
           />
           <ErrorMessage>{errors.memo && errors.memo.message}</ErrorMessage>
         </FormControl>
-        <Divider pt="5" />
         <Button type="submit" bg="lime" fontWeight="bold" width="64px">
           Submit
         </Button>
