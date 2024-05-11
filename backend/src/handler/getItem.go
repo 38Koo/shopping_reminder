@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	db "github.com/38Koo/shopping_reminder/backend/src/infra/database"
 	"github.com/38Koo/shopping_reminder/backend/src/infra/database/schema"
@@ -13,7 +14,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func GetItems(c echo.Context) error {
+func GetItem(c echo.Context) error {
 	db := db.SetUpDB()
 	defer db.Close()
 
@@ -28,13 +29,20 @@ func GetItems(c echo.Context) error {
 	var user schema.User
 	var items []schema.Item
 
-	err := db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx);
+	userItemIDStr := c.Param("itemID")
+	userItemID, err := strconv.ParseInt(userItemIDStr, 10, 64)
+	if err != nil {
+		fmt.Println(err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "itemID is invalid"})
+	}
+
+	err = db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx);
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal(err)
 	}
 
-	err = db.NewSelect().Model(&items).Where("user_id = ?", user.ID).Scan(ctx)
+	err = db.NewSelect().Model(&items).Where("user_id = ?", user.ID).Where("user_item_id = ?", userItemID).Scan(ctx)
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal(err)

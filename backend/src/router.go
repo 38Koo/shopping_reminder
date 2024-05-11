@@ -44,7 +44,10 @@ func newRouter() *echo.Echo {
 	api.POST("/webhook/create", handler.CreateUser)
 
 	// リスト取得
-	api.GET("/list", handler.GetItems)
+	api.GET("/list", handler.GetItemList)
+
+	// アイテム取得
+	api.GET("/item/:itemID", handler.GetItem)
 
 	// アイテム追加
 	api.POST("/add/item", handler.AddItem)
