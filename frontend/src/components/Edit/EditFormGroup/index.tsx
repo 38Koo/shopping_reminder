@@ -15,8 +15,18 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { DatePicker } from "@yamada-ui/calendar";
 import { useRouter } from "next/router";
+import { getItem } from "../handlers/getItem";
 
 export const EditFormGroup = () => {
+  const router = useRouter();
+  const { itemID } = router.query;
+
+  if (!itemID || Array.isArray(itemID)) {
+    return null;
+  }
+
+  const { data } = getItem(parseInt(itemID));
+
   const {
     register,
     control,
@@ -28,8 +38,6 @@ export const EditFormGroup = () => {
   const [token, setToken] = useState<string | null>(null);
 
   const { getToken } = useAuth();
-  const router = useRouter();
-  const { itemID } = router.query;
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -39,6 +47,10 @@ export const EditFormGroup = () => {
 
     fetchToken();
   }, [getToken]);
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <Form
@@ -63,7 +75,11 @@ export const EditFormGroup = () => {
           <Label fontWeight="bold" fontSize="20px">
             品名
           </Label>
-          <Input placeholder="シャンプー" {...register("itemName")} />
+          <Input
+            defaultValue={data[0].itemName}
+            placeholder="シャンプー"
+            {...register("itemName")}
+          />
           <ErrorMessage>
             {errors.itemName && errors.itemName.message}
           </ErrorMessage>
@@ -75,6 +91,7 @@ export const EditFormGroup = () => {
           </Label>
           <Input
             type="number"
+            defaultValue={data[0].stockCount}
             placeholder="数値を入力してください"
             {...register("stockCount")}
           />
@@ -92,6 +109,7 @@ export const EditFormGroup = () => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <DatePicker
+                defaultValue={data[0].purchaseDate} // TODO: これ動いてない
                 placeholder="pick a date"
                 width="200px"
                 onChange={onChange}
@@ -110,6 +128,7 @@ export const EditFormGroup = () => {
             備考
           </Label>
           <Textarea
+            defaultValue={data[0].memo}
             placeholder="備考を入力してください"
             {...register("memo")}
           />
