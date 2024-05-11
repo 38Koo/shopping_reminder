@@ -16,7 +16,6 @@ func main() {
 	db := db.SetUpDB()
 	defer db.Close()
 
-	fmt.Println("Hello, World!")
 	app := &cli.App{
 		Name:  "bun",
 				// Pass the database to the sub-commands.
