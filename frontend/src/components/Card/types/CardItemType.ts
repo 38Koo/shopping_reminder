@@ -3,7 +3,8 @@
 
 export type CardItemType = {
   ID: string;
-  Name: string;
+  itemName: string;
   Stock: number;
   LastPurchaseDate: Date;
+  UserItemID: number;
 };

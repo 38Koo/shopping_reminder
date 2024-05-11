@@ -9,8 +9,8 @@ import (
 type Item struct {
     bun.BaseModel `bun:"table:items,alias:i"`
     ID                int64       `bun:"id,autoincrement,notnull"`
-		UserItemID				int64       `bun:"pk,notnull,user_item_id"`
-		UserID            int64       `bun:"pk,notnull,user_id"`
+		UserItemID				int64       `bun:"user_item_id,pk,notnull"`
+		UserID            int64       `bun:"user_id,pk,notnull"`
 		Name              string      `bun:"name,notnull" json:"itemName"`
 		Stock             int32       `bun:"stock,notnull" json:"stockCount"`
 		LastPurchaseDate  time.Time   `bun:"lastpurchasedate"`

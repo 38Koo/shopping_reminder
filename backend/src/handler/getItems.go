@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -29,11 +30,13 @@ func GetItems(c echo.Context) error {
 
 	err := db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx);
 	if err != nil {
+		fmt.Println(err)
 		log.Fatal(err)
 	}
 
 	err = db.NewSelect().Model(&items).Where("user_id = ?", user.ID).Scan(ctx)
 	if err != nil {
+		fmt.Println(err)
 		log.Fatal(err)
 	}
 	return c.JSON(http.StatusOK, items)
