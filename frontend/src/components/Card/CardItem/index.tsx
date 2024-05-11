@@ -22,7 +22,7 @@ export const CardItem = ({ item }: CardItemItem) => {
     <Card size="md" width="300px" height="400px">
       <CardHeader>
         <Heading as="h3" size="md">
-          {item.Name}
+          {item.itemName}
         </Heading>
       </CardHeader>
       <CardBody>
@@ -41,7 +41,7 @@ export const CardItem = ({ item }: CardItemItem) => {
         </List>
       </CardBody>
       <CardFooter display="flex" justifyContent="end">
-        <Link href="/1/edit">
+        <Link href={`/edit/${item.UserItemID}`}>
           <Button as="span" bg="primary" color="white">
             Edit
           </Button>
