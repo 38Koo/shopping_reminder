@@ -46,7 +46,9 @@ export const AddFormGroup = () => {
         "Content-Type": "application/json",
       }}
       encType="application/json"
-      onSubmit={(data) => console.log(data)}
+      onSubmit={(data) => {
+        console.log(data);
+      }}
       control={control}
     >
       <Stack
@@ -113,7 +115,6 @@ export const AddFormGroup = () => {
           />
           <ErrorMessage>{errors.memo && errors.memo.message}</ErrorMessage>
         </FormControl>
-        <Divider pt="5" />
         <Button type="submit" bg="lime" fontWeight="bold" width="64px">
           Submit
         </Button>
