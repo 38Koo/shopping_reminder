@@ -71,7 +71,7 @@ export const EditFormGroup = () => {
         borderRadius="8px"
         boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
       >
-        <FormControl isRequired errorMessage="1">
+        <FormControl isRequired>
           <Label fontWeight="bold" fontSize="20px">
             品名
           </Label>
