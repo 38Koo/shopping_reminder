@@ -15,8 +15,8 @@ type Item struct {
 		Stock               int32       `bun:"stock,notnull" json:"stockCount"`
 		Memo							  string      `bun:"memo"`
 		UsageDuration       int32       `bun:"usageduration"`
-		LatestReminder 		  bool				`bun:"latestreminder,notnull"`
-		UntilNextTimeByDays int32       `bun:"untilnexttimebydays"`
+		LatestReminder 		  bool				`bun:"latest_reminder,notnull"`
+		UntilNextTimeByDays int32       `bun:"until_next_time_by_days"`
 		CreatedAt           time.Time   
 		UpdatedAt           time.Time   `bun:",nullzero"`
 		DeletedAt           time.Time   `bun:",soft_delete,nullzero"`
