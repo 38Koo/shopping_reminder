@@ -25,12 +25,12 @@ func ItemSeeder() {
 	defer sqlDB.Close()
 
 	items := []schema.Item{
-		{Name: "test1", Stock: 1, LastPurchaseDate: time.Now(), UsageDuration: 2, CreatedAt: time.Now()},
-		{Name: "test2", Stock: 1, LastPurchaseDate: time.Now(), UsageDuration: 2, CreatedAt: time.Now()},
+		{Name: "test1", Stock: 1, UsageDuration: 2, CreatedAt: time.Now()},
+		{Name: "test2", Stock: 1, UsageDuration: 2, CreatedAt: time.Now()},
 	}
 
 	for _, item := range items {
-		_, err := sqlDB.Exec("INSERT INTO items (name, Stock, LastPurchaseDate, UsageDuration) VALUES ($1, $2, $3, $4)", item.Name, item.Stock, item.LastPurchaseDate, item.UsageDuration)
+		_, err := sqlDB.Exec("INSERT INTO items (name, Stock, UsageDuration) VALUES ($1, $2, $3, $4)", item.Name, item.Stock, item.UsageDuration)
 		if err != nil {
 			log.Fatal(err)
 		}
