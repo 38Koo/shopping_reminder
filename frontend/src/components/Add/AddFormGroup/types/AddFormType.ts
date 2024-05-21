@@ -9,5 +9,6 @@ export const addFormSchema = z.object({
     z.number({ message: "入力が不正です。" })
   ),
   purchaseDate: z.date().optional(),
+  NextPurchaseDate: z.date().optional(),
   memo: z.string().optional(),
 });
