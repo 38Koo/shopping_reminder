@@ -105,6 +105,28 @@ export const AddFormGroup = () => {
           </ErrorMessage>
         </FormControl>
         <Divider pt="5" />
+        <FormControl isInvalid={!!errors.purchaseDate} label="購入日">
+          <Label fontWeight="bold" fontSize="20px">
+            次回購入日
+          </Label>
+          <Controller
+            name="NextPurchaseDate"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <DatePicker
+                placeholder="pick a date"
+                width="200px"
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+          />
+          <ErrorMessage>
+            {errors.purchaseDate && errors.purchaseDate.message}
+          </ErrorMessage>
+        </FormControl>
+        <Divider pt="5" />
         <FormControl isInvalid={!!errors.memo}>
           <Label fontWeight="bold" fontSize="20px">
             備考

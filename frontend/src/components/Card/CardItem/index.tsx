@@ -34,6 +34,7 @@ export const CardItem = ({ item }: CardItemItem) => {
           日
         </Text>
         <List>
+          {/* // TODO: dataに置き換え */}
           <ListItem>在庫: 1</ListItem>
           <ListItem>買替日数/個: 30日</ListItem>
           <ListItem>最終購入日: 2024/01/28</ListItem>

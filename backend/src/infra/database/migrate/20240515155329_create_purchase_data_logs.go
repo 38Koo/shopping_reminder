@@ -14,7 +14,7 @@ func init() {
 			CREATE TABLE purchase_data_logs (
 				id serial PRIMARY KEY,
 				item_id int NOT NULL,
-				lastpurchasedate timestamp NOT NULL,
+				purchasedate timestamp NOT NULL,
 				purchasecount int NOT NULL,
 				created_at timestamp NOT NULL,
 				updated_at timestamp NULL,
