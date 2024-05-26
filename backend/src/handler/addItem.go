@@ -19,7 +19,8 @@ type RequestBody struct {
 	UserItemID				  int64
 	UserID              int64
 	Name                string `json:"itemName"`
-	Stock               int32  `json:"stockCount"`
+	Stock               int64  `json:"stockCount"`
+	Price 						 	int64  `json:"price"`
 	Memo							  string
 	UsageDuration       int32
 	LatestReminder 		  bool
@@ -131,6 +132,11 @@ func AddItem(c echo.Context) error {
 		maxPurchaseLogsID.PurchaseCount = 1
 	}
 
+	var averagePrice int64 = 0
+	if reqBody.Price != 0 {
+		averagePrice = reqBody.Price / reqBody.Stock
+	}
+
 	item := &schema.Item{
 		Name: reqBody.Name,
 		Stock: reqBody.Stock,
@@ -139,12 +145,15 @@ func AddItem(c echo.Context) error {
 		UserItemID: maxItemID.UserItemID + 1,
 		LatestReminder: false,
 		UntilNextTimeByDays: untilNextTimeByDays,
+		AveragePrice: averagePrice,
 	}
 
 	purchaseDateLogs := &schema.PurchaseDataLogs{
  		ItemID: maxItemID.UserItemID,
 		PurchaseDate: purchaseDate,
 		PurchaseCount: maxPurchaseLogsID.PurchaseCount + 1,
+		Price: reqBody.Price,
+		Amount: reqBody.Stock,
 	}
 
 	_, err = tx.NewInsert().Model(item).Exec(ctx)

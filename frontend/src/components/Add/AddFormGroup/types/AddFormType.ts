@@ -8,6 +8,10 @@ export const addFormSchema = z.object({
     (v) => Number(v),
     z.number({ message: "入力が不正です。" })
   ),
+  price: z.preprocess(
+    (v) => Number(v),
+    z.number({ message: "入力が不正です。" })
+  ),
   purchaseDate: z.date().optional(),
   NextPurchaseDate: z.date().optional(),
   memo: z.string().optional(),
