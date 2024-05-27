@@ -12,6 +12,8 @@ type PurchaseDataLogs struct {
 	ItemID 					  int64       `bun:"item_id,pk,notnull"`
 	PurchaseDate  		time.Time   `bun:"purchasedate" json:"purchaseDate"`
 	PurchaseCount 		int64			  `bun:"purchasecount"`
+	Amount 						int64			  `bun:"amount"`
+	Price 						int64			  `bun:"price,notnull"`
 	CreatedAt         time.Time   
 	UpdatedAt         time.Time   `bun:",nullzero"`
 	DeletedAt         time.Time   `bun:",soft_delete,nullzero"`

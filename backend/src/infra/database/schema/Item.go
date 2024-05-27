@@ -12,9 +12,10 @@ type Item struct {
 		UserItemID				  int64       `bun:"user_item_id,pk,notnull"`
 		UserID              int64       `bun:"user_id,pk,notnull"`
 		Name                string      `bun:"name,notnull" json:"itemName"`
-		Stock               int32       `bun:"stock,notnull" json:"stockCount"`
+		Stock               int64       `bun:"stock,notnull" json:"stockCount"`
 		Memo							  string      `bun:"memo"`
-		UsageDuration       int32       `bun:"usageduration"`
+		AveragePrice				int64       `bun:"avarageprice"`
+		UsageDuration       int64       `bun:"usageduration"`
 		LatestReminder 		  bool				`bun:"latest_reminder,notnull"`
 		UntilNextTimeByDays int32       `bun:"until_next_time_by_days"`
 		CreatedAt           time.Time   

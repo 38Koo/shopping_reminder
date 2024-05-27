@@ -83,6 +83,20 @@ export const AddFormGroup = () => {
           </ErrorMessage>
         </FormControl>
         <Divider pt="5" />
+        <FormControl isInvalid={!!errors.stockCount}>
+          <Label fontWeight="bold" fontSize="20px">
+            価格
+          </Label>
+          <Input
+            type="number"
+            placeholder="複数購入した場合は、合計金額を入力してください"
+            {...register("price")}
+          />
+          <ErrorMessage>
+            {errors.stockCount && errors.stockCount.message}
+          </ErrorMessage>
+        </FormControl>
+        <Divider pt="5" />
         <FormControl isInvalid={!!errors.purchaseDate} label="購入日">
           <Label fontWeight="bold" fontSize="20px">
             購入日
