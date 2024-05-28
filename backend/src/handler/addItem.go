@@ -145,7 +145,7 @@ func AddItem(c echo.Context) error {
 		UserItemID: maxItemID.UserItemID + 1,
 		LatestReminder: false,
 		UntilNextTimeByDays: untilNextTimeByDays,
-		AveragePrice: averagePrice,
+		AveragePrice: float32(averagePrice),
 	}
 
 	purchaseDateLogs := &schema.PurchaseDataLogs{

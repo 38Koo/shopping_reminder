@@ -3,6 +3,7 @@ import styles from "@/styles/Home.module.css";
 import { Inter } from "next/font/google";
 import { Header } from "../Header";
 import { useRouter } from "next/router";
+import { Box } from "@yamada-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         {!isTopPage && <Header />}
-        {children}
+        <Box pt={"8rem"} pb={"2rem"}>
+          {children}
+        </Box>
       </main>
     </>
   );
