@@ -11,7 +11,7 @@ export const Header = () => {
     <Box
       height="8rem"
       width="full"
-      position="sticky"
+      position="fixed"
       zIndex={1000}
       top={0}
       bgColor={"white"}

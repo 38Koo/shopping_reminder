@@ -1,4 +1,4 @@
-import { Edit } from "../../../components/Edit";
+import { Edit } from "../../../components/Edit/component";
 
 export default function EditPage() {
   // fetch
