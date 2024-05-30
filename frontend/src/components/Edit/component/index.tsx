@@ -1,11 +1,11 @@
-import { Box, Stack } from "@yamada-ui/react";
+import { Box, Stack, Tab, TabPanel, Tabs } from "@yamada-ui/react";
 import { SectionHeader } from "../../SectionHeader";
 import { EditFormGroup } from "./EditFormGroup";
 import { useRouter } from "next/router";
 import { getItem } from "../handlers/getItem";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { EditHistoryFormGroup } from "./EditHistoryFormGroup";
+import { EditPurchaseHistoryFormGroup } from "./EditPurchaseHistoryFormGroup";
 
 export const Edit = () => {
   const router = useRouter();
@@ -36,10 +36,18 @@ export const Edit = () => {
   }
   return (
     <Box justifyContent="center">
-      <Stack width="60%">
+      <Stack width="100%">
         <SectionHeader title="Edit" />
-        <EditFormGroup token={token} data={data} />
-        <EditHistoryFormGroup token={token} data={data} />
+        <Tabs width="100%" isFitted>
+          <Tab>Item</Tab>
+          <Tab>History</Tab>
+          <TabPanel>
+            <EditFormGroup token={token} data={data} />
+          </TabPanel>
+          <TabPanel>
+            <EditPurchaseHistoryFormGroup data={data} token={token} />
+          </TabPanel>
+        </Tabs>
       </Stack>
     </Box>
   );

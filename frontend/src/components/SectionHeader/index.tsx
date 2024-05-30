@@ -9,7 +9,7 @@ export const SectionHeader = ({ title }: SectionHeaderProps) => {
     <Heading
       as="h1"
       width="full"
-      paddingY="20px"
+      paddingTop="20px"
       paddingLeft="30px"
       fontSize="32px"
       fontWeight="bold"
