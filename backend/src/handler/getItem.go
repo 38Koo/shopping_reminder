@@ -27,8 +27,7 @@ func GetItem(c echo.Context) error {
 
 	ctx := context.Background()
 	var user schema.User
-	var items []schema.Item
-
+	var item schema.Item
 	userItemIDStr := c.Param("itemID")
 	userItemID, err := strconv.ParseInt(userItemIDStr, 10, 64)
 	if err != nil {
@@ -36,16 +35,27 @@ func GetItem(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": "itemID is invalid"})
 	}
 
-	err = db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx);
+	err = db.NewSelect().
+		Model(&user).
+		Where("uuid = ?", userUID).
+		Scan(ctx);
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal(err)
 	}
 
-	err = db.NewSelect().Model(&items).Where("user_id = ?", user.ID).Where("user_item_id = ?", userItemID).Scan(ctx)
+	err = db.NewSelect().
+		Model(&item).
+		ColumnExpr("i.*").
+		Relation("Logs").
+		Where("i.user_id = ?", user.ID).
+		Where("purchase_data_logs.item_id = ?", userItemID).
+		Scan(ctx)
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal(err)
 	}
-	return c.JSON(http.StatusOK, items)
+
+	fmt.Println(item)
+	return c.JSON(http.StatusOK, item)
 }

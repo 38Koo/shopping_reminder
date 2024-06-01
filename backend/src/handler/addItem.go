@@ -149,7 +149,7 @@ func AddItem(c echo.Context) error {
 	}
 
 	purchaseDateLogs := &schema.PurchaseDataLogs{
- 		ItemID: maxItemID.UserItemID,
+ 		ItemID: maxItemID.UserItemID + 1,
 		PurchaseDate: purchaseDate,
 		PurchaseCount: maxPurchaseLogsID.PurchaseCount + 1,
 		Price: reqBody.Price,
