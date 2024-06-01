@@ -38,7 +38,6 @@ func CreateUser(c echo.Context) error {
 		return err
 	}
 
-
 	err = webHook.Verify(reqBody, c.Request().Header)
 	if err != nil {
 		return err
@@ -58,7 +57,7 @@ func CreateUser(c echo.Context) error {
 	data := evt["data"].(map[string]interface{})
 	emailAddressData := data["email_addresses"].([]interface{})
 	firstEmailAddressData := emailAddressData[0].(map[string]interface{})
-	userUID := firstEmailAddressData["id"].(string)
+	userUID := data["id"].(string)
 	email := firstEmailAddressData["email_address"].(string)
 
 	externalAccountsData := data["external_accounts"].([]interface{})
