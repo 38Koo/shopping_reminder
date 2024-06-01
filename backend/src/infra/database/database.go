@@ -27,7 +27,7 @@ func SetUpDB() *bun.DB {
 	db := bun.NewDB(sqlDB, pgdialect.New())
 
 	db.AddQueryHook(bundebug.NewQueryHook(
-		// bundebug.WithVerbose(true)
+		bundebug.WithVerbose(true),
 		bundebug.FromEnv("BUNDEBUG"),
 	))
 
@@ -45,6 +45,11 @@ func CreateTable() {
 	}
 	 
 	_, err = db.NewCreateTable().Model((*schema.Item)(nil)).IfNotExists().Exec(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = db.NewCreateTable().Model((*schema.PurchaseDataLogs)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}

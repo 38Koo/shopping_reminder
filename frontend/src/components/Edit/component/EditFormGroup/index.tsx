@@ -56,7 +56,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             品名
           </Label>
           <Input
-            defaultValue={data[0].itemName}
+            defaultValue={data.itemName}
             placeholder="シャンプー"
             {...register("itemName")}
           />
@@ -71,7 +71,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
         <HStack align="end" justifyContent="center">
           <Text>あと</Text>
           <Text fontSize={"36px"} fontWeight="bold">
-            {data[0].UntilNextTimeByDays}
+            {data.UntilNextTimeByDays}
           </Text>
           <Text>日</Text>
         </HStack>
@@ -84,7 +84,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             <HStack>
               <Input
                 type="number"
-                defaultValue={data[0].AveragePrice}
+                defaultValue={data.AveragePrice}
                 width="100px"
                 disabled
               />
@@ -101,7 +101,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             <HStack>
               <Input
                 type="number"
-                defaultValue={data[0].UsageDuration}
+                defaultValue={data.UsageDuration}
                 width="100px"
                 disabled
               />
@@ -115,7 +115,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             備考
           </Label>
           <Textarea
-            defaultValue={data[0].memo}
+            defaultValue={data.memo}
             placeholder="備考を入力してください"
             {...register("memo")}
           />
