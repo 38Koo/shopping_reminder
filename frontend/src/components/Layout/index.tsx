@@ -21,7 +21,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         {!isTopPage && <Header />}
-        <Box pt={"8rem"} pb={"2rem"}>
+        <Box pt="8rem" pb="2rem" px="3rem">
           {children}
         </Box>
       </main>

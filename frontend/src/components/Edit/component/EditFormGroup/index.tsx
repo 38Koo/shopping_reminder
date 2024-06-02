@@ -55,11 +55,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
           <Label fontWeight="bold" fontSize="20px">
             品名
           </Label>
-          <Input
-            defaultValue={data.itemName}
-            placeholder="シャンプー"
-            {...register("itemName")}
-          />
+          <Input defaultValue={data.itemName} {...register("itemName")} />
           <ErrorMessage>
             {errors.itemName && errors.itemName.message}
           </ErrorMessage>

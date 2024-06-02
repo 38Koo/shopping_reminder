@@ -1,4 +1,4 @@
-import { Box, Spacer, Stack, VStack } from "@yamada-ui/react";
+import { Stack, VStack } from "@yamada-ui/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { EditHistoryFormCard } from "../EditHistoryFormCard";
 import { EditShortDescription } from "../EditShortDescription";
@@ -29,11 +29,13 @@ export const EditPurchaseHistoryFormGroup = ({
     >
       <EditShortDescription data={data} />
       <VStack>
-        <EditHistoryFormCard data={data} />
-        <EditHistoryFormCard data={data} />
-        <EditHistoryFormCard data={data} />
-        <EditHistoryFormCard data={data} />
-        <EditHistoryFormCard data={data} />
+        {data.Logs.map((history, index) => (
+          <EditHistoryFormCard
+            key={history.ID}
+            data={history}
+            index={index + 1}
+          />
+        ))}
       </VStack>
     </Stack>
   );

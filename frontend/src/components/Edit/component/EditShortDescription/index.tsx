@@ -10,16 +10,16 @@ export const EditShortDescription = ({ data }: EditShortDescriptionProps) => {
       <HStack align="end">
         <VStack width="50%">
           <Text fontWeight="bold" fontSize="2xl">
-            シャンプー
+            {data.itemName}
           </Text>
           <HStack>
             <Text>平均購入価格</Text>
-            <Text>400</Text>
+            <Text>{data.AveragePrice}</Text>
             <Text>円</Text>
           </HStack>
           <HStack>
             <Text>平均消費期間</Text>
-            <Text>20</Text>
+            <Text>{data.UsageDuration}</Text>
             <Text>日</Text>
           </HStack>
         </VStack>
@@ -28,7 +28,7 @@ export const EditShortDescription = ({ data }: EditShortDescriptionProps) => {
           <HStack>
             <Text>あと</Text>
             <Text fontSize="2xl" fontWeight="bold">
-              5
+              {data.UntilNextTimeByDays}
             </Text>
             <Text>日</Text>
           </HStack>

@@ -6,8 +6,8 @@ export const CardFooter = () => {
   const router = useRouter();
 
   return (
-    <Box position="fixed" bottom="0" height="10%" width="full">
-      <Box position="absolute" right="50px" top="10px">
+    <Box position="fixed" bottom="0" left="0" height="10%" width="100%">
+      <Box position="absolute" right="5rem" top="10px">
         <Button
           as="span"
           colorScheme="lime"
