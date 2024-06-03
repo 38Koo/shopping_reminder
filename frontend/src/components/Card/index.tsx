@@ -12,7 +12,6 @@ export const Card = ({ list }: CardProps) => {
     <>
       <CardGroup list={list} />
       <CardFooter />
-      <Box height="150px" />
     </>
   );
 };

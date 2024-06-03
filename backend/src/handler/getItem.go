@@ -45,17 +45,15 @@ func GetItem(c echo.Context) error {
 	}
 
 	err = db.NewSelect().
-		Model(&item).
-		ColumnExpr("i.*").
-		Relation("Logs").
-		Where("i.user_id = ?", user.ID).
-		Where("purchase_data_logs.item_id = ?", userItemID).
-		Scan(ctx)
+    Model(&item).
+    Relation("Logs").
+    Where("i.user_id = ?", user.ID).
+		Where("i.id = ?", userItemID).
+    Scan(ctx)
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal(err)
 	}
 
-	fmt.Println(item)
 	return c.JSON(http.StatusOK, item)
 }

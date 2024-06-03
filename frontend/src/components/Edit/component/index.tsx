@@ -16,7 +16,6 @@ export const Edit = () => {
   }
 
   const { data } = getItem(parseInt(itemID));
-  console.log(data);
 
   const [token, setToken] = useState<string | null>(null);
 

@@ -142,14 +142,15 @@ func AddItem(c echo.Context) error {
 		Stock: reqBody.Stock,
 		Memo: reqBody.Memo,
 		UserID: user.ID,
-		UserItemID: maxItemID.UserItemID + 1,
+		UserItemID: maxItemID.UserItemID,
 		LatestReminder: false,
 		UntilNextTimeByDays: untilNextTimeByDays,
 		AveragePrice: float32(averagePrice),
 	}
 
 	purchaseDateLogs := &schema.PurchaseDataLogs{
- 		ItemID: maxItemID.UserItemID + 1,
+ 		ItemID: maxItemID.UserItemID,
+		UserID: user.ID,
 		PurchaseDate: purchaseDate,
 		PurchaseCount: maxPurchaseLogsID.PurchaseCount + 1,
 		Price: reqBody.Price,
