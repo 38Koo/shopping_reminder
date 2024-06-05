@@ -26,15 +26,6 @@ func EditItem(c echo.Context) error {
 		return err
 	}
 
-	// const layout = "Mon Jan 02 2006 15:04:05 GMT-0700"
-	// purchaseDateStr := item.LastPurchaseDate.Format(layout)
-	// purchaseDateStr = strings.Split(purchaseDateStr, "(")[0]
-	// purchaseDate, err := time.Parse(layout, purchaseDateStr)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return c.JSON(http.StatusBadRequest, map[string]string{"message": "purchaseDate is invalid???"})
-	// }
-
 	// itemIDをreqPathから取得
 	userItemIDStr := c.Param("itemID")
 	userItemID, err := strconv.ParseInt(userItemIDStr, 10, 64)
@@ -55,14 +46,13 @@ func EditItem(c echo.Context) error {
 
 	item = &schema.Item{
 		Name: item.Name,
-		Stock: item.Stock,
 		Memo: item.Memo,
 		UserItemID: userItemID,
 		UserID: user.ID,
 	}
 
 	// where句にitemIDを追加
-	_, err =db.NewUpdate().Column("name", "stock", "lastpurchasedate", "memo").Model(item).WherePK().Exec(ctx)	
+	_, err = db.NewUpdate().Column("name", "memo").Model(item).WherePK().Exec(ctx)	
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}

@@ -14,7 +14,7 @@ type Item struct {
 		Name                string              `bun:"name,notnull" json:"itemName"`
 		Stock               int64               `bun:"stock,notnull" json:"stockCount"`
 		Memo							  string              `bun:"memo"`
-		AveragePrice				float32             `bun:"avarageprice"`
+		AveragePrice				float32             `bun:"averageprice"`
 		UsageDuration       int64               `bun:"usageduration"`
 		LatestReminder 		  bool				        `bun:"latest_reminder,notnull"`
 		UntilNextTimeByDays int32               `bun:"until_next_time_by_days"`

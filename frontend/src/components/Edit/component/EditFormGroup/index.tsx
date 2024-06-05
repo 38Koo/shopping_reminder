@@ -15,6 +15,7 @@ import { Form, useForm } from "react-hook-form";
 import { EditFormType, editFormSchema } from "../../types/EditFormTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
+import { Red_Hat_Display } from "next/font/google";
 
 type EditFormGroupProps = {
   token: string | null;
@@ -32,6 +33,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
   } = useForm<EditFormType>({
     resolver: zodResolver(editFormSchema),
   });
+
   return (
     <Form
       action={`http://localhost:8989/api/edit/item/${itemID}`}
@@ -60,6 +62,18 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             {errors.itemName && errors.itemName.message}
           </ErrorMessage>
         </FormControl>
+        <Divider pt="5" />
+        <Stack>
+          <Label fontWeight="bold" fontSize="20px">
+            在庫数
+          </Label>
+          <HStack align="end" justifyContent="center">
+            <Text fontSize={"36px"} fontWeight="bold">
+              {data.stockCount}
+            </Text>
+            <Text>個</Text>
+          </HStack>
+        </Stack>
         <Divider pt="5" />
         <Label fontWeight="bold" fontSize="20px">
           次回購入予定日まで
@@ -111,7 +125,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             備考
           </Label>
           <Textarea
-            defaultValue={data.memo}
+            defaultValue={data.Memo}
             placeholder="備考を入力してください"
             {...register("memo")}
           />
