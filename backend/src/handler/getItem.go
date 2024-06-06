@@ -48,7 +48,7 @@ func GetItem(c echo.Context) error {
     Model(&item).
     Relation("Logs").
     Where("i.user_id = ?", user.ID).
-		Where("i.id = ?", userItemID).
+		Where("i.user_item_id = ?", userItemID).
     Scan(ctx)
 	if err != nil {
 		fmt.Println(err)

@@ -71,11 +71,11 @@ func AddItem(c echo.Context) error {
 		fmt.Println(err)
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": "purchaseDate is invalid"})
 	}
-	if reqBody.NextPurchaseDate.IsZero() {
+	if reqBody.PurchaseDate.IsZero() {
 		purchaseDate = time.Now()
 		purchaseDate = time.Date(purchaseDate.Year(), purchaseDate.Month(), purchaseDate.Day(), 0, 0, 0, 0, purchaseDate.Location())
 	} else {
-		purchaseDateStr := reqBody.NextPurchaseDate.Format(layout)
+		purchaseDateStr := reqBody.PurchaseDate.Format(layout)
 		purchaseDateStr = strings.Split(purchaseDateStr, " (")[0]
 		purchaseDate, err = time.Parse(layout, purchaseDateStr)
 		if err != nil {
@@ -86,10 +86,26 @@ func AddItem(c echo.Context) error {
 	purchaseDate = purchaseDate.In(location)
 	purchaseDate = time.Date(purchaseDate.Year(), purchaseDate.Month(), purchaseDate.Day(), 0, 0, 0, 0, purchaseDate.Location())
 		
+	var nextPurchaseDate time.Time
+	if reqBody.NextPurchaseDate.IsZero() {
+		nextPurchaseDate = time.Now()
+		nextPurchaseDate = time.Date(nextPurchaseDate.Year(), nextPurchaseDate.Month(), nextPurchaseDate.Day(), 0, 0, 0, 0, nextPurchaseDate.Location())
+	} else {
+		nextPurchaseDateStr := reqBody.NextPurchaseDate.Format(layout)
+		nextPurchaseDateStr = strings.Split(nextPurchaseDateStr, " (")[0]
+		nextPurchaseDate, err = time.Parse(layout, nextPurchaseDateStr)
+		if err != nil {
+			fmt.Println(err)
+			return c.JSON(http.StatusBadRequest, map[string]string{"message": "nextPurchaseDate is invalid"})
+		}
+	}
+	nextPurchaseDate = nextPurchaseDate.In(location)
+	nextPurchaseDate = time.Date(nextPurchaseDate.Year(), nextPurchaseDate.Month(), nextPurchaseDate.Day(), 0, 0, 0, 0, nextPurchaseDate.Location())
+		
 	today := time.Now()
 	today = today.In(location)
 	today = time.Date(today.Year(), today.Month(), today.Day(), 0, 0, 0, 0, today.Location())
-	untilNextTimeByDays := int32(purchaseDate.Sub(today).Hours()) / 24
+	untilNextTimeByDays := int32(nextPurchaseDate.Sub(today).Hours()) / 24
 
 	userUID := claims.Subject
 	ctx := context.Background()
@@ -115,8 +131,10 @@ func AddItem(c echo.Context) error {
 	}
 	if maxItemID.UserItemID == 0 {
 		maxItemID.UserItemID = 1
+	} else {
+		maxItemID.UserItemID += 1
 	}
-	
+
 	var maxPurchaseLogsID schema.PurchaseDataLogs
 	err = db.NewSelect().Model(&maxPurchaseLogsID).Where("item_id = ?", reqBody.UserItemID).Where("item_id = ?", reqBody.ID).Order("id DESC").Limit(1).Scan(ctx)
 	if err != nil {
