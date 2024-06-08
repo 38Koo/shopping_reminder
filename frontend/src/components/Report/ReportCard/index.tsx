@@ -19,6 +19,10 @@ type ReportCardProps = {
   control: Control<ReportFormType>;
   errors: FieldErrors<ReportFormType>;
   mapIndex: number;
+  data: {
+    PurchaseQuantity?: number | undefined;
+    PurchaseDate?: Date | undefined;
+  };
 };
 
 export const ReportCard = ({
@@ -26,6 +30,7 @@ export const ReportCard = ({
   control,
   errors,
   mapIndex,
+  data,
 }: ReportCardProps) => {
   return (
     <HStack
@@ -37,10 +42,10 @@ export const ReportCard = ({
       boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
       gap={20}
     >
-      <Label fontWeight="bold">シャンプー</Label>
+      <Label fontWeight="bold">{data.itemName}</Label>
       <HStack gap="10">
         <FormControl isRequired>
-          <HStack gap="0">
+          <HStack gap="0" align={"end"}>
             <Label width="80px">購入数:</Label>
             <Input
               type="number"
@@ -57,7 +62,7 @@ export const ReportCard = ({
           </ErrorMessage>
         </FormControl>
         <FormControl isRequired>
-          <HStack gap="0">
+          <HStack gap="0" align={"end"}>
             <Label width="80px">購入日:</Label>
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}

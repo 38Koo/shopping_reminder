@@ -22,4 +22,5 @@ type Item struct {
 		UpdatedAt           time.Time           `bun:",nullzero"`
 		DeletedAt           time.Time           `bun:",soft_delete,nullzero"`
 		Logs		            []*PurchaseDataLogs `bun:"rel:has-many,join:user_item_id=item_id,join:user_id=user_id"`
+		User								*User               `bun:"rel:belongs-to,join:user_id=id"`
 }
