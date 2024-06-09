@@ -15,4 +15,5 @@ type User struct {
 		CreatedAt  time.Time   
 		UpdatedAt  time.Time   `bun:",nullzero"`
 		DeletedAt  time.Time   `bun:",soft_delete,nullzero"`
+		Items			 []*Item     `bun:"rel:has-many,join:id=user_id"`
 }

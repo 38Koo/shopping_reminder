@@ -7,17 +7,25 @@ import {
   reportFormSchemaArray,
 } from "../types/ReportFormtypes";
 
-export const ReportFormGroup = () => {
+type ReportFormGroupProps = {
+  data: any[];
+};
+
+export const ReportFormGroup = ({ data }: ReportFormGroupProps) => {
   const {
     control,
     register,
     formState: { errors },
   } = useForm<ReportFormType>({
     defaultValues: {
-      report: [
-        { PurchaseQuantity: 1, PurchaseDate: new Date() },
-        { PurchaseQuantity: 1, PurchaseDate: new Date() },
-      ],
+      report: data
+        ? data.map(() => {
+            return {
+              PurchaseQuantity: undefined,
+              PurchaseDate: undefined,
+            };
+          })
+        : [],
     },
     mode: "onBlur",
     resolver: zodResolver(reportFormSchemaArray),
@@ -37,10 +45,11 @@ export const ReportFormGroup = () => {
       >
         <Stack gap="30px">
           <Stack>
-            {fields.map((item, index) => (
+            {fields.map((field, index) => (
               <ReportCard
                 mapIndex={index}
-                key={item.id}
+                key={field.id}
+                data={data[index]}
                 {...{ control, register, errors }}
               />
             ))}
