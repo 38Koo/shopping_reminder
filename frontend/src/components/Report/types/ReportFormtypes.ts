@@ -5,11 +5,11 @@ export type ReportFormType = {
 };
 
 const reportFormSchema = z.object({
-  PurchaseQuantity: z.preprocess(
-    (v) => Number(v),
-    z.number({ message: "入力が不正です。" })
-  ),
+  PurchaseAmount: z
+    .preprocess((v) => Number(v), z.number({ message: "入力が不正です。" }))
+    .optional(),
   PurchaseDate: z.date().optional(),
+  itemID: z.number(),
 });
 
 export const reportFormSchemaArray = z.object({

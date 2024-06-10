@@ -6,32 +6,20 @@ import {
   Input,
   Label,
 } from "@yamada-ui/react";
-import {
-  Control,
-  Controller,
-  FieldErrors,
-  UseFormRegister,
-} from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { ReportFormType } from "../types/ReportFormtypes";
 
 type ReportCardProps = {
-  register: UseFormRegister<ReportFormType>;
-  control: Control<ReportFormType>;
-  errors: FieldErrors<ReportFormType>;
   mapIndex: number;
   data: {
-    PurchaseQuantity?: number | undefined;
+    PurchaseAmount?: number | undefined;
     PurchaseDate?: Date | undefined;
   };
 };
 
-export const ReportCard = ({
-  register,
-  control,
-  errors,
-  mapIndex,
-  data,
-}: ReportCardProps) => {
+export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
+  const formMethods = useFormContext<ReportFormType>();
+
   return (
     <HStack
       minW="800px"
@@ -44,29 +32,36 @@ export const ReportCard = ({
     >
       <Label fontWeight="bold">{data.itemName}</Label>
       <HStack gap="10">
-        <FormControl isRequired>
+        <FormControl>
           <HStack gap="0" align={"end"}>
             <Label width="80px">購入数:</Label>
-            <Input
-              type="number"
-              width="60px"
-              {...register(`report.${mapIndex}.PurchaseQuantity` as const, {
-                required: true,
-                valueAsNumber: true,
-              })}
+            <Controller
+              name={`report.${mapIndex}.PurchaseAmount`}
+              defaultValue={0}
+              control={formMethods.control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <Input
+                  type="number"
+                  width="60px"
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                />
+              )}
             />
           </HStack>
           <ErrorMessage>
-            {errors.report?.[mapIndex]?.PurchaseQuantity &&
-              errors.report?.[mapIndex]?.PurchaseQuantity?.message}
+            {formMethods.formState.errors.report?.[mapIndex]?.PurchaseAmount &&
+              formMethods.formState.errors.report?.[mapIndex]?.PurchaseAmount
+                ?.message}
           </ErrorMessage>
         </FormControl>
-        <FormControl isRequired>
+        <FormControl>
           <HStack gap="0" align={"end"}>
             <Label width="80px">購入日:</Label>
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}
-              control={control}
+              control={formMethods.control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <DatePicker
                   width="200px"
@@ -78,8 +73,9 @@ export const ReportCard = ({
             />
           </HStack>
           <ErrorMessage>
-            {errors.report?.[mapIndex]?.PurchaseDate &&
-              errors.report?.[mapIndex]?.PurchaseDate?.message}
+            {formMethods.formState.errors.report?.[mapIndex]?.PurchaseDate &&
+              formMethods.formState.errors.report?.[mapIndex]?.PurchaseDate
+                ?.message}
           </ErrorMessage>
         </FormControl>
       </HStack>
