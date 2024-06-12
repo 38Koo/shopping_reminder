@@ -6,7 +6,6 @@ import {
   ReportFormType,
   reportFormSchemaArray,
 } from "../types/ReportFormtypes";
-import { error, log } from "console";
 
 type ReportFormGroupProps = {
   data: any[];
@@ -26,9 +25,10 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
           })
         : [],
     },
-    mode: "onBlur",
+    mode: "onSubmit",
     resolver: zodResolver(reportFormSchemaArray),
   });
+
   const { fields } = useFieldArray({
     control: formMethods.control,
     name: "report",
@@ -36,15 +36,7 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
   });
 
   const onSubmit = (data) => {
-    const validItems = data.data.report.filter(
-      (item) => item.PurchaseAmount && item.PurchaseDate
-    );
-
-    if (validItems.length === 0) {
-      alert("少なくとも1つ以上のアイテムを更新してください。");
-      return;
-    }
-    return validItems;
+    console.log(data);
   };
 
   return (
