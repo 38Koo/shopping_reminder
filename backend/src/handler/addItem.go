@@ -14,7 +14,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type RequestBody struct {
+type RequestBodyForAddItem struct {
 	ID 									int64  `json:"id"`
 	UserItemID				  int64
 	UserID              int64
@@ -58,7 +58,7 @@ func AddItem(c echo.Context) error {
 		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized"})
 	}
 	
-	var reqBody *RequestBody
+	var reqBody *RequestBodyForAddItem
 	if err := c.Bind(&reqBody);err != nil {
 		fmt.Println(err)
 		return err
@@ -135,21 +135,6 @@ func AddItem(c echo.Context) error {
 		maxItemID.UserItemID += 1
 	}
 
-	var maxPurchaseLogsID schema.PurchaseDataLogs
-	err = db.NewSelect().Model(&maxPurchaseLogsID).Where("item_id = ?", reqBody.UserItemID).Where("item_id = ?", reqBody.ID).Order("id DESC").Limit(1).Scan(ctx)
-	if err != nil {
-		if err.Error() == sql.ErrNoRows.Error() {
-			maxPurchaseLogsID.PurchaseCount = 0
-		} else {
-			fmt.Println(err)
-			return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
-		}
-	}
-
-	if maxPurchaseLogsID.PurchaseCount == 0 {
-		maxPurchaseLogsID.PurchaseCount = 1
-	}
-
 	var averagePrice int64 = 0
 	if reqBody.Price != 0 {
 		averagePrice = reqBody.Price / reqBody.Stock
@@ -170,7 +155,7 @@ func AddItem(c echo.Context) error {
  		ItemID: maxItemID.UserItemID,
 		UserID: user.ID,
 		PurchaseDate: purchaseDate,
-		PurchaseCount: maxPurchaseLogsID.PurchaseCount + 1,
+		PurchaseCount: 1,
 		Price: reqBody.Price,
 		Amount: reqBody.Stock,
 	}
