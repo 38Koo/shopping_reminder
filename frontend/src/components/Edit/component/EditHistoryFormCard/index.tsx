@@ -52,7 +52,7 @@ export const EditHistoryFormCard = ({
   return (
     <Form
       control={control}
-      action={"http://localhost:8989/api/test"}
+      action={"http://localhost:8989/api/edit/log"}
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,
@@ -116,12 +116,7 @@ export const EditHistoryFormCard = ({
                   name="Price"
                   control={control}
                   render={({ field }) => (
-                    <Input
-                      type="number"
-                      width="200px"
-                      {...field}
-                      onClick={() => resetField("Price", { defaultValue: 1 })}
-                    />
+                    <Input type="number" width="200px" {...field} />
                   )}
                 />
               </HStack>
