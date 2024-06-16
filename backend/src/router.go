@@ -55,6 +55,9 @@ func newRouter() *echo.Echo {
 	// アイテム編集
 	api.POST("/edit/item/:itemID", handler.EditItem)
 
+	// ログ編集
+	api.POST("/edit/log/:itemID", handler.EditLog)
+
 	// レポート取得
 	api.GET("/report", handler.GetReportList)
 
