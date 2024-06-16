@@ -23,6 +23,7 @@ type EditHistoryFormCardProps = {
     nextLogDate: Date;
   };
   token: string | null;
+  itemID: number;
 };
 
 export const EditHistoryFormCard = ({
