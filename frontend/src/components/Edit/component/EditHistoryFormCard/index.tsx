@@ -15,7 +15,6 @@ import {
   editLogsFormSchema,
 } from "../../types/EditLogsFormType";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { date } from "zod";
 
 type EditHistoryFormCardProps = {
   data: EditLogFormType & {
@@ -23,11 +22,13 @@ type EditHistoryFormCardProps = {
     nextLogDate: Date;
   };
   token: string | null;
+  itemID: number;
 };
 
 export const EditHistoryFormCard = ({
   data,
   token,
+  itemID,
 }: EditHistoryFormCardProps) => {
   const {
     control,
@@ -52,7 +53,7 @@ export const EditHistoryFormCard = ({
   return (
     <Form
       control={control}
-      action={"http://localhost:8989/api/edit/log"}
+      action={`http://localhost:8989/api/edit/log/${itemID}`}
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,
