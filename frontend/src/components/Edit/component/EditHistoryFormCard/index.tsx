@@ -23,12 +23,13 @@ type EditHistoryFormCardProps = {
     nextLogDate: Date;
   };
   token: string | null;
-  itemID: number;
+  UserItemID: number;
 };
 
 export const EditHistoryFormCard = ({
   data,
   token,
+  UserItemID,
 }: EditHistoryFormCardProps) => {
   const {
     control,
@@ -59,7 +60,7 @@ export const EditHistoryFormCard = ({
   return (
     <Form
       control={control}
-      action={`http://localhost:8989/api/edit/log/${itemID}`}
+      action={`http://localhost:8989/api/edit/log/${UserItemID}`}
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,
