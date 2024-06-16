@@ -122,12 +122,7 @@ export const EditHistoryFormCard = ({
                   name="Price"
                   control={control}
                   render={({ field }) => (
-                    <Input
-                      type="number"
-                      width="200px"
-                      {...field}
-                      onClick={() => resetField("Price", { defaultValue: 1 })}
-                    />
+                    <Input type="number" width="200px" {...field} />
                   )}
                 />
               </HStack>
