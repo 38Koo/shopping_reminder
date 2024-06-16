@@ -8,7 +8,6 @@ type EditPurchaseHistoryFormGroupProps = {
   token: string | null;
   data: {
     Logs: EditLogFormType[];
-    UserItemID: number;
   };
 };
 
@@ -34,7 +33,6 @@ export const EditPurchaseHistoryFormGroup = ({
             key={history.PurchaseCount}
             data={history}
             token={token}
-            itemID={data.UserItemID}
           />
         ))}
       </VStack>
