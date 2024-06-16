@@ -12,10 +12,12 @@ import {
   Textarea,
 } from "@yamada-ui/react";
 import { Form, useForm } from "react-hook-form";
-import { EditFormType, editFormSchema } from "../../types/EditFormTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { Red_Hat_Display } from "next/font/google";
+import {
+  EditItemFormType,
+  editItemFormSchema,
+} from "../../types/EditItemFormType";
 
 type EditFormGroupProps = {
   token: string | null;
@@ -30,8 +32,8 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
     register,
     control,
     formState: { errors },
-  } = useForm<EditFormType>({
-    resolver: zodResolver(editFormSchema),
+  } = useForm<EditItemFormType>({
+    resolver: zodResolver(editItemFormSchema),
   });
 
   return (

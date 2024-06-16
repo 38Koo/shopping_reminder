@@ -1,22 +1,21 @@
 import { Stack, VStack } from "@yamada-ui/react";
-import { useFieldArray, useForm } from "react-hook-form";
 import { EditHistoryFormCard } from "../EditHistoryFormCard";
 import { EditShortDescription } from "../EditShortDescription";
+import { EditLogFormType } from "../../types/EditLogsFormType";
+import { generateArrayIncludingValidDate } from "../helper/generateArrayIncludingValidDate";
 
 type EditPurchaseHistoryFormGroupProps = {
   token: string | null;
-  data: any; //TODO: 適切な型に修正する
+  data: {
+    Logs: EditLogFormType[];
+  };
 };
 
 export const EditPurchaseHistoryFormGroup = ({
   token,
   data,
 }: EditPurchaseHistoryFormGroupProps) => {
-  const { control } = useForm();
-  const { fields } = useFieldArray({
-    control,
-    name: "editHistory",
-  });
+  const logsIncludingValidDate = generateArrayIncludingValidDate(data.Logs);
 
   return (
     <Stack
@@ -29,11 +28,11 @@ export const EditPurchaseHistoryFormGroup = ({
     >
       <EditShortDescription data={data} />
       <VStack>
-        {data.Logs.map((history, index) => (
+        {logsIncludingValidDate.map((history) => (
           <EditHistoryFormCard
-            key={history.ID}
+            key={history.PurchaseCount}
             data={history}
-            index={index + 1}
+            token={token}
           />
         ))}
       </VStack>

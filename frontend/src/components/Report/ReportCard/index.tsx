@@ -14,6 +14,7 @@ type ReportCardProps = {
   data: {
     PurchaseAmount?: number | undefined;
     PurchaseDate?: Date | undefined;
+    itemName: string;
   };
 };
 
@@ -62,12 +63,13 @@ export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}
               control={formMethods.control}
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field: { onChange, onBlur, value, ...rest } }) => (
                 <DatePicker
                   width="200px"
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
+                  {...rest}
                 />
               )}
             />
