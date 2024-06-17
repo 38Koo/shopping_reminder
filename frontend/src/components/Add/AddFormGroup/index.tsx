@@ -126,13 +126,14 @@ export const AddFormGroup = () => {
           <Controller
             name="NextPurchaseDate"
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, onBlur, value, ...rest } }) => (
               <DatePicker
                 placeholder="pick a date"
                 width="200px"
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                {...rest}
               />
             )}
           />

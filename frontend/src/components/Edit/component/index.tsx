@@ -2,20 +2,16 @@ import { Box, Stack, Tab, TabPanel, Tabs } from "@yamada-ui/react";
 import { SectionHeader } from "../../SectionHeader";
 import { EditFormGroup } from "./EditFormGroup";
 import { useRouter } from "next/router";
-import { getItem } from "../handlers/getItem";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { EditPurchaseHistoryFormGroup } from "./EditPurchaseHistoryFormGroup";
+import { useGetItem } from "../hooks/useGetItem";
 
 export const Edit = () => {
   const router = useRouter();
   const { itemID } = router.query;
 
-  if (!itemID || Array.isArray(itemID)) {
-    return null;
-  }
-
-  const { data } = getItem(parseInt(itemID));
+  const { data } = useGetItem(itemID);
 
   const [token, setToken] = useState<string | null>(null);
 
