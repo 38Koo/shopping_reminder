@@ -8,6 +8,7 @@ import {
   Input,
   Text,
   VStack,
+  useDisclosure,
 } from "@yamada-ui/react";
 import { Controller, Form, useForm } from "react-hook-form";
 import {
@@ -16,6 +17,9 @@ import {
 } from "../../types/EditLogsFormType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
+import { Icon } from "@yamada-ui/fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { DeleteLogModal } from "../DeleteLogModal";
 
 type EditHistoryFormCardProps = {
   data: EditLogFormType & {
@@ -51,6 +55,8 @@ export const EditHistoryFormCard = ({
   const router = useRouter();
   const { itemID } = router.query;
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   if (!itemID || Array.isArray(itemID)) {
     return null;
   }
@@ -83,6 +89,16 @@ export const EditHistoryFormCard = ({
           <FormControl>
             <Text {...register("PurchaseCount")}>{data.PurchaseCount}</Text>
           </FormControl>
+        </Box>
+        <Box position="absolute" top={4} right={6}>
+          <Icon icon={faTrashCan} size="xl" color="gray" onClick={onOpen} />
+          <DeleteLogModal
+            isOpen={isOpen}
+            onClose={onClose}
+            token={token}
+            itemID={Number(itemID)}
+            purchaseCount={data.PurchaseCount}
+          />
         </Box>
         <HStack>
           <VStack>

@@ -1,4 +1,4 @@
-import { EditLogFormType } from "../../types/EditLogsFormType";
+import { EditLogFormType } from "../types/EditLogsFormType";
 
 export const generateArrayIncludingValidDate = (logs: EditLogFormType[]) => {
   return logs.map((log, index) => {

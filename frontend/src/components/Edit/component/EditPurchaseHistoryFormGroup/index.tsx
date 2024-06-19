@@ -2,7 +2,7 @@ import { Stack, VStack } from "@yamada-ui/react";
 import { EditHistoryFormCard } from "../EditHistoryFormCard";
 import { EditShortDescription } from "../EditShortDescription";
 import { EditLogFormType } from "../../types/EditLogsFormType";
-import { generateArrayIncludingValidDate } from "../helper/generateArrayIncludingValidDate";
+import { generateArrayIncludingValidDate } from "../../helper/generateArrayIncludingValidDate";
 
 type EditPurchaseHistoryFormGroupProps = {
   token: string | null;

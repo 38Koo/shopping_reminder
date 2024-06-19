@@ -488,6 +488,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.5.2"
+  checksum: 10c0/12104e93a0056ad1077f7350826f52aa26465bb1d6b4ce75dab0307072a3871301ec750c3a34d89d05e7338c9b446fa2793150cf58a5167217021943ef877d77
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.5.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.2"
+  checksum: 10c0/91695dd375623988d16e6f0dc69d20350ef3fa3296fe40aa08877aae7beaf64378134656a2227419fe648dcd27a81c03fe1fd9a6c87956d863164b0380ba77d0
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-solid-svg-icons@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.5.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.2"
+  checksum: 10c0/af2778b91ba4bf7b61ae0cdf0d39d75b6906a82bfdf8e977881d987b86a32ce157297853b7892aa3b609076b5542ea1e1e78b520d57b6f50677a2a748cf3434c
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:^0.2.0":
+  version: 0.2.2
+  resolution: "@fortawesome/react-fontawesome@npm:0.2.2"
+  dependencies:
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@fortawesome/fontawesome-svg-core": ~1 || ~6
+    react: ">=16.3"
+  checksum: 10c0/824f96cd9be2e637738de3073450b30fe6b5a91b4f95df804c162b47ddf7d1a43df5ed7439a01e7236e888edc093efad1e61322ac693ddc3ae01147b90318745
+  languageName: node
+  linkType: hard
+
 "@hookform/resolvers@npm:^3.3.4":
   version: 3.3.4
   resolution: "@hookform/resolvers@npm:3.3.4"
@@ -1071,6 +1108,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yamada-ui/core@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@yamada-ui/core@npm:1.7.2"
+  dependencies:
+    "@emotion/css": "npm:^11.11.0"
+    "@emotion/react": "npm:^11.11.0"
+    "@emotion/sheet": "npm:^1.2.2"
+    "@emotion/styled": "npm:^11.11.0"
+    "@yamada-ui/portal": "npm:1.0.15"
+    "@yamada-ui/utils": "npm:1.2.1"
+    csstype: "npm:^3.1.3"
+    react-fast-compare: "npm:^3.2.2"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/84fc6b9927c140e506329d3b2fc6d407c3740351b7d69d3c853709da3ff3ddbbb60cf3430df77756f0a143e48e07abb9e2390350e87f2ec9a95b391548f1046a
+  languageName: node
+  linkType: hard
+
 "@yamada-ui/editable@npm:1.0.15":
   version: 1.0.15
   resolution: "@yamada-ui/editable@npm:1.0.15"
@@ -1123,6 +1178,21 @@ __metadata:
   peerDependencies:
     react: ">=18"
   checksum: 10c0/01b20ef5dccc661422e277412f9dcfc929271e52369cf0e0327190706b83c24a1b0d575f4859ef1c9fdfaac7125bfffa23ef3b422bfe2e115d0a3848cc352e6e
+  languageName: node
+  linkType: hard
+
+"@yamada-ui/fontawesome@npm:^1.0.29":
+  version: 1.0.29
+  resolution: "@yamada-ui/fontawesome@npm:1.0.29"
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
+    "@fortawesome/react-fontawesome": "npm:^0.2.0"
+    "@yamada-ui/core": "npm:1.7.2"
+    "@yamada-ui/icon": "npm:1.0.28"
+    "@yamada-ui/utils": "npm:1.2.1"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/2624e43525c21db4aa6d8fe6d6100378663bae580b0767933b3407c24372787f273bcf48d30f101e2f8032e32c02ca726808acd0eb5dc8ad7d2b539e0f42ed2d
   languageName: node
   linkType: hard
 
@@ -1186,6 +1256,19 @@ __metadata:
   peerDependencies:
     react: ">=18"
   checksum: 10c0/383f7d2870882a3d94f537a35b35447d32097f4bab05845bfa6bb9445239a181dba24342ba3086b1145a47bd2d273d9fc331fdbfd1f102c3a242656a3a867f3b
+  languageName: node
+  linkType: hard
+
+"@yamada-ui/icon@npm:1.0.28":
+  version: 1.0.28
+  resolution: "@yamada-ui/icon@npm:1.0.28"
+  dependencies:
+    "@yamada-ui/core": "npm:1.7.2"
+    "@yamada-ui/use-token": "npm:1.1.16"
+    "@yamada-ui/utils": "npm:1.2.1"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/e1251b94b9c435363d100c76df7d8df5afdf0eb329580a7445632ee12be897391981d7f9745c17dee41a7d68f0c67966f6e20c1a670b0d7beac2742e19d4f384
   languageName: node
   linkType: hard
 
@@ -1518,6 +1601,18 @@ __metadata:
     react: ">=18"
     react-dom: ">=18"
   checksum: 10c0/78a4deb2c854c5ac1f60ee2636c88779a85eb6cff37816a2ef55111d424700ee26fb5d8226e7cd06c9fee5da48bffdc497101ca2ceca7b2cd2562160a84f4eca
+  languageName: node
+  linkType: hard
+
+"@yamada-ui/portal@npm:1.0.15":
+  version: 1.0.15
+  resolution: "@yamada-ui/portal@npm:1.0.15"
+  dependencies:
+    "@yamada-ui/utils": "npm:1.2.1"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 10c0/33c2d56a5d4368faca757d6be26f391da24d0ff78e011fe9d7f5ec2f216786bc7e090d4353b5c007036b2997d64e4df0defea993c6943dd104be08cdc801e051
   languageName: node
   linkType: hard
 
@@ -2485,6 +2580,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yamada-ui/use-token@npm:1.1.16":
+  version: 1.1.16
+  resolution: "@yamada-ui/use-token@npm:1.1.16"
+  dependencies:
+    "@yamada-ui/core": "npm:1.7.2"
+    "@yamada-ui/utils": "npm:1.2.1"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/42af39529d30cf29ade0cce72e1f198755a63297804e445e446d6a208e42eae25a991f6f3a41bc3eb1ad47d555fe4818b078fbe2d2f416cd5e48585adaaa2c72
+  languageName: node
+  linkType: hard
+
 "@yamada-ui/use-value@npm:1.1.0":
   version: 1.1.0
   resolution: "@yamada-ui/use-value@npm:1.1.0"
@@ -2541,6 +2648,17 @@ __metadata:
   peerDependencies:
     react: ">=18"
   checksum: 10c0/6e6b9fa3234b3f1c83951fac0e708120d3c9035b5d022be5bbafbfe5c935744637c4e99fb93a5a92efb9cf418362bc3dd56eb8d4c0df91834a696188e9ea3555
+  languageName: node
+  linkType: hard
+
+"@yamada-ui/utils@npm:1.2.1":
+  version: 1.2.1
+  resolution: "@yamada-ui/utils@npm:1.2.1"
+  dependencies:
+    color2k: "npm:^2.0.2"
+  peerDependencies:
+    react: ">=18"
+  checksum: 10c0/6c7d505503bda002d4ae878edc4784d650f30741e6b7d6ce9f0ed673d8caf1e4ab4332549cc40fc80e9d5963c63a71fc3d69e15339f3b0d09f40014118e5b9cd
   languageName: node
   linkType: hard
 
@@ -2928,11 +3046,14 @@ __metadata:
   dependencies:
     "@clerk/clerk-js": "npm:^5.0.0"
     "@clerk/nextjs": "npm:^4.29.7"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.5.2"
     "@hookform/resolvers": "npm:^3.3.4"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
     "@yamada-ui/calendar": "npm:^1.2.12"
+    "@yamada-ui/fontawesome": "npm:^1.0.29"
     "@yamada-ui/react": "npm:^1.2.6"
     next: "npm:14.1.0"
     react: "npm:^18"
@@ -3310,7 +3431,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2":
+"prop-types@npm:^15.6.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:

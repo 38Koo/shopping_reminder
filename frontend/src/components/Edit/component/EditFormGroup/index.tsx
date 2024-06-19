@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Center,
   Divider,
@@ -10,6 +11,7 @@ import {
   Stack,
   Text,
   Textarea,
+  useDisclosure,
 } from "@yamada-ui/react";
 import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +20,10 @@ import {
   EditItemFormType,
   editItemFormSchema,
 } from "../../types/EditItemFormType";
+import { Icon } from "@yamada-ui/fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { DeleteLogModal } from "../DeleteLogModal";
+import { DeleteItemModal } from "../DeleteItemModal";
 
 type EditFormGroupProps = {
   token: string | null;
@@ -36,6 +42,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
     resolver: zodResolver(editItemFormSchema),
   });
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Form
       action={`http://localhost:8989/api/edit/item/${itemID}`}
@@ -54,7 +61,17 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
         border="solid 1px #e5e7eb"
         borderRadius="8px"
         boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
+        position="relative"
       >
+        <Box position="absolute" top={4} right={6}>
+          <Icon icon={faTrashCan} size="xl" color="gray" onClick={onOpen} />
+          <DeleteItemModal
+            isOpen={isOpen}
+            onClose={onClose}
+            token={token}
+            itemID={Number(itemID)}
+          />
+        </Box>
         <FormControl isRequired>
           <Label fontWeight="bold" fontSize="20px">
             品名
