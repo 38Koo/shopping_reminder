@@ -1,6 +1,6 @@
 import { Box } from "@yamada-ui/react";
-import { SectionHeader } from "../SectionHeader";
 import { AddFormGroup } from "./AddFormGroup";
+import { SectionHeader } from "../../SectionHeader/component";
 
 export const Add = () => {
   return (

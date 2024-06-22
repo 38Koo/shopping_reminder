@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { SectionHeader } from "../SectionHeader";
 import { ReportFormGroup } from "./ReportFormGroup";
-import { getReportList } from "./handlers/getReportList";
 import { useAuth } from "@clerk/nextjs";
+import { getReportList } from "../handlers/getReportList";
+import { SectionHeader } from "../../SectionHeader/component";
 
 export const Report = () => {
   const { data } = getReportList();
