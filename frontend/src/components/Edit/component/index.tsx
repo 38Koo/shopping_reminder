@@ -1,11 +1,11 @@
-import { Box, Stack, Tab, TabPanel, Tabs } from "@yamada-ui/react";
-import { SectionHeader } from "../../SectionHeader";
+import { Box, Card, Stack, Tab, TabPanel, Tabs } from "@yamada-ui/react";
 import { EditFormGroup } from "./EditFormGroup";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { EditPurchaseHistoryFormGroup } from "./EditPurchaseHistoryFormGroup";
 import { useGetItem } from "../hooks/useGetItem";
+import { SectionHeader } from "../../SectionHeader/component";
 
 export const Edit = () => {
   const router = useRouter();

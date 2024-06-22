@@ -1,5 +1,4 @@
 import { Box, Button } from "@yamada-ui/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export const CardFooter = () => {

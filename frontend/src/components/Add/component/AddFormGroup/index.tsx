@@ -13,7 +13,7 @@ import { DatePicker } from "@yamada-ui/calendar";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddFromType, addFormSchema } from "./types/AddFormType";
+import { AddFromType, addFormSchema } from "../../types/AddFormType";
 
 export const AddFormGroup = () => {
   const {

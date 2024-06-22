@@ -1,11 +1,11 @@
-import { Box, Button, Stack } from "@yamada-ui/react";
+import { Accordion, AccordionItem, Box, Button, Stack } from "@yamada-ui/react";
 import { Form, FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { ReportCard } from "../ReportCard";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ReportFormType,
   reportFormSchemaArray,
-} from "../types/ReportFormtypes";
+} from "../../types/ReportFormtypes";
 
 type ReportFormGroupProps = {
   data: any[];
@@ -52,22 +52,31 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
             "Content-Type": "application/json",
           }}
         >
-          <Stack gap="30px">
-            <Stack>
-              {fields.map((field, index) => (
+          <Accordion isMultiple>
+            {fields.map((field, index) => (
+              <AccordionItem label={data[index].itemName} minW="800px">
                 <ReportCard
                   mapIndex={index}
                   key={field.id}
                   data={data[index]}
                 />
-              ))}
-            </Stack>
-            <Box textAlign="right">
-              <Button type="submit" bg="orange">
-                Register
-              </Button>
-            </Box>
-          </Stack>
+              </AccordionItem>
+            ))}
+            {fields.map((field, index) => (
+              <AccordionItem label={data[index].itemName} minW="800px">
+                <ReportCard
+                  mapIndex={index}
+                  key={field.id}
+                  data={data[index]}
+                />
+              </AccordionItem>
+            ))}
+          </Accordion>
+          <Box textAlign="right">
+            <Button type="submit" bg="orange">
+              Register
+            </Button>
+          </Box>
         </Form>
       </FormProvider>
     </Box>

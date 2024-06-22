@@ -1,7 +1,7 @@
-import { Card } from "../../components/Card";
-import { CardNoItem } from "../../components/Card/CardNoItem";
-import { getItemList } from "../../components/Card/handlers/getItemList";
-import { SectionHeader } from "../../components/SectionHeader";
+import { Card } from "../../components/CardGrpup/component";
+import { CardNoItem } from "../../components/CardGrpup/component/CardNoItem";
+import { getItemList } from "../../components/CardGrpup/handlers/getItemList";
+import { SectionHeader } from "../../components/SectionHeader/component";
 
 export default function ListPage() {
   const { data } = getItemList();

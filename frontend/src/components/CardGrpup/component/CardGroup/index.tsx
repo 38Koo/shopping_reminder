@@ -1,6 +1,6 @@
 import { Box, SimpleGrid } from "@yamada-ui/react";
 import { CardItem } from "../CardItem";
-import { CardItemType } from "../types/CardItemType";
+import { CardItemType } from "../../types/CardItemType";
 
 type CardGroupProps = {
   list: CardItemType[];
@@ -8,7 +8,7 @@ type CardGroupProps = {
 
 export const CardGroup = ({ list }: CardGroupProps) => {
   return (
-    <Box width="calc(100% - 6rem)">
+    <Box width="100%">
       <SimpleGrid
         width="100%"
         columns={{ base: 4, md: 1 }}

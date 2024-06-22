@@ -1,7 +1,6 @@
-import { Box } from "@yamada-ui/react";
-import { CardFooter } from "./CardFooter";
 import { CardGroup } from "./CardGroup";
-import { CardItemType } from "./types/CardItemType";
+import { CardItemType } from "../types/CardItemType";
+import { CardFooter } from "./CardFooter";
 
 type CardProps = {
   list: CardItemType[];
