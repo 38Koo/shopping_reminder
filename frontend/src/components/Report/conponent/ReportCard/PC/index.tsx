@@ -1,5 +1,6 @@
 import { DatePicker } from "@yamada-ui/calendar";
 import {
+  Box,
   ErrorMessage,
   FormControl,
   HStack,
@@ -7,22 +8,17 @@ import {
   Label,
 } from "@yamada-ui/react";
 import { Controller, useFormContext } from "react-hook-form";
-import { ReportFormType } from "../../types/ReportFormtypes";
+import { ReportFormType } from "../../../types/ReportFormtypes";
 
-type ReportCardProps = {
+type ReportCardForPCProps = {
   mapIndex: number;
-  data: {
-    PurchaseAmount?: number | undefined;
-    PurchaseDate?: Date | undefined;
-    itemName: string;
-  };
 };
 
-export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
+export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
   const formMethods = useFormContext<ReportFormType>();
 
   return (
-    <HStack
+    <Box
       width="auto"
       padding="6"
       border="solid 1px #e5e7eb"
@@ -40,14 +36,8 @@ export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
               name={`report.${mapIndex}.PurchaseAmount`}
               defaultValue={0}
               control={formMethods.control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  type="number"
-                  width="60px"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
+              render={({ field }) => (
+                <Input type="number" width="60px" {...field} />
               )}
             />
           </HStack>
@@ -63,17 +53,11 @@ export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
               価格:
             </Label>
             <Controller
-              name={`report.${mapIndex}.PurchaseAmount`}
+              name={`report.${mapIndex}.Price`}
               defaultValue={0}
               control={formMethods.control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  type="number"
-                  width="60px"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                />
+              render={({ field }) => (
+                <Input type="number" width="100px" {...field} />
               )}
             />
           </HStack>
@@ -91,15 +75,7 @@ export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}
               control={formMethods.control}
-              render={({ field: { onChange, onBlur, value, ...rest } }) => (
-                <DatePicker
-                  width="200px"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  {...rest}
-                />
-              )}
+              render={({ field }) => <DatePicker width="200px" {...field} />}
             />
           </HStack>
           <ErrorMessage>
@@ -109,6 +85,6 @@ export const ReportCard = ({ mapIndex, data }: ReportCardProps) => {
           </ErrorMessage>
         </FormControl>
       </HStack>
-    </HStack>
+    </Box>
   );
 };

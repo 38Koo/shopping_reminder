@@ -3,6 +3,7 @@ import { ReportFormGroup } from "./ReportFormGroup";
 import { useAuth } from "@clerk/nextjs";
 import { getReportList } from "../handlers/getReportList";
 import { SectionHeader } from "../../SectionHeader/component";
+import { Stack } from "@yamada-ui/react";
 
 export const Report = () => {
   const { data } = getReportList();
@@ -22,9 +23,9 @@ export const Report = () => {
   }, [getToken]);
 
   return (
-    <>
+    <Stack gap={6}>
       <SectionHeader title="買い物報告" />
       {!!data && <ReportFormGroup data={data} token={token} />}
-    </>
+    </Stack>
   );
 };
