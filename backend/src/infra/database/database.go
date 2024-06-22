@@ -39,12 +39,12 @@ func CreateTable() {
 
 	ctx := context.Background()
 	
-	_, err := db.NewCreateTable().Model((*schema.User)(nil)).IfNotExists().Exec(ctx)
+	_, err := db.NewCreateTable().Model((*schema.Users)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
 	 
-	_, err = db.NewCreateTable().Model((*schema.Item)(nil)).IfNotExists().Exec(ctx)
+	_, err = db.NewCreateTable().Model((*schema.Items)(nil)).IfNotExists().Exec(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}

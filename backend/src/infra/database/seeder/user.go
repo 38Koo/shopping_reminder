@@ -23,7 +23,7 @@ func main() {
 	}
 	defer sqlDB.Close()
 
-	users := []schema.User{
+	users := []schema.Users{
 		{Name: "test1", Email: "test1", UUID: "UUID1", CreatedAt: time.Now(),  },
 		{Name: "test2", Email: "test2", UUID: "UUID2", CreatedAt: time.Now(),  },
 	}

@@ -18,6 +18,7 @@ type ReportItemFromRequest struct {
 	UserItemID				  int64  		`json:"itemID"`
 	PurchaseDate  			time.Time `json:"PurchaseDate"`
 	PurchaseAmount 			int64     `json:"PurchaseAmount"`
+	Price 							int64     `json:"Price"`
 	PurchaseCount 			int64     `json:"PurchaseCount"`
 }
 
@@ -54,7 +55,7 @@ func SubmitReport(c echo.Context) error {
 	ctx := context.Background()
 
 	var logs []schema.PurchaseDataLogs
-	var user schema.User
+	var user schema.Users
 	
 	err := db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx)
 	if err != nil {
@@ -84,7 +85,7 @@ func SubmitReport(c echo.Context) error {
 	for i, log := range reqBody.Report {
 		var purchaseDate time.Time
 		var amount int64
-		var count int64
+		var price int64
 		const layout = "Mon Jan 02 2006 15:04:05 GMT-0700"
 		location, err := time.LoadLocation("Asia/Tokyo")
 		if err != nil {
@@ -110,13 +111,13 @@ func SubmitReport(c echo.Context) error {
 		purchaseDate = time.Date(purchaseDate.Year(), purchaseDate.Month(), purchaseDate.Day(), 0, 0, 0, 0, purchaseDate.Location())
 		
 		amount = log.PurchaseAmount
-		count = item[i].MaxCount + 1
+		price = log.Price
 
 		log := schema.PurchaseDataLogs{
 			ItemID: item[i].ID,
 			PurchaseDate: purchaseDate,
 			Amount: amount,
-			PurchaseCount: count,
+			Price: price,
 			UserID: user.ID,
 		}
 

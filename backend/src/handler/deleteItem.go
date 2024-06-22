@@ -44,9 +44,9 @@ func DeleteItem(c echo.Context) error {
 	userUID := claims.Subject
 	ctx := context.Background()
 
-	var item schema.Item
+	var item schema.Items
 	var logs schema.PurchaseDataLogs
-	var user schema.User
+	var user schema.Users
 
 	userItemIDStr := c.Param("itemID")
 	userItemID,err := strconv.ParseInt(userItemIDStr, 10, 64)

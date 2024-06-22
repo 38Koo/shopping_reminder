@@ -65,7 +65,7 @@ func newRouter() *echo.Echo {
 	api.POST("/report/submit", handler.SubmitReport)
 
 	// ログ削除
-	api.POST("/delete/:itemID/:purchaseCount", handler.DeleteLog)
+	api.POST("/delete/:logID", handler.DeleteLog)
 
 	// アイテム削除
 	api.POST("/delete/:itemID", handler.DeleteItem)

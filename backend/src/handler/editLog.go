@@ -46,7 +46,7 @@ func EditLog(c echo.Context) error {
 		return err
 	}
 
-	user := schema.User{
+	user := schema.Users{
 		UUID: useUID,
 	}
 	
