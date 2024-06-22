@@ -8,6 +8,9 @@ const reportFormSchema = z
       PurchaseAmount: z
         .preprocess((v) => Number(v), z.number({ message: "入力が不正です。" }))
         .optional(),
+      Price: z
+        .preprocess((v) => Number(v), z.number({ message: "入力が不正です。" }))
+        .optional(),
       PurchaseDate: z.date().optional(),
       itemID: z.number(),
     })
