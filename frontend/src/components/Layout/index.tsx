@@ -19,10 +19,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        {!isTopPage && <Header />}
-        <Box pt="8rem" pb="2rem" px="3rem">
-          {children}
+      <main>
+        <Box overflow="hidden">
+          {!isTopPage && <Header />}
+          <Box pt="8rem" pb="2rem" px="20%">
+            {children}
+          </Box>
         </Box>
       </main>
     </>
