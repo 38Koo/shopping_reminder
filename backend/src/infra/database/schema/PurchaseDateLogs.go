@@ -8,13 +8,13 @@ import (
 
 type PurchaseDataLogs struct {
 	bun.BaseModel `bun:"table:purchase_data_logs,alias:pdl"`
-	ItemID 					  int64       `bun:"item_id,pk,notnull"`
-	UserID 					  int64       `bun:"user_id,pk,notnull"`
-	PurchaseCount 		int64			  `bun:"purchasecount,pk,notnull"`
-	PurchaseDate  		time.Time   `bun:"purchasedate" json:"purchaseDate"`
+	ID 								int64       `bun:"id,autoincrement,pk,notnull"`
+	UserItemID 				int64       `bun:"user_item_id,notnull"`
+	UserID 					  int64       `bun:"user_id,notnull"`
+	PurchaseDate  		time.Time   `bun:"purchase_date,notnull" json:"purchaseDate"`
 	Amount 						int64			  `bun:"amount"`
 	Price 						int64			  `bun:"price,notnull"`
-	CreatedAt         time.Time   
+	CreatedAt         time.Time   `bun:"default:current_timestamp"`
 	UpdatedAt         time.Time   `bun:",nullzero"`
 	DeletedAt         time.Time   `bun:",soft_delete,nullzero"`
 }

@@ -2,13 +2,14 @@ package handler
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 
 	db "github.com/38Koo/shopping_reminder/backend/src/infra/database"
 	"github.com/38Koo/shopping_reminder/backend/src/infra/database/schema"
+	"github.com/uptrace/bun"
 
 	"github.com/clerkinc/clerk-sdk-go/clerk"
 	"github.com/labstack/echo/v4"
@@ -26,8 +27,7 @@ func GetItem(c echo.Context) error {
 	userUID := claims.Subject
 
 	ctx := context.Background()
-	var user schema.User
-	var item schema.Item
+	var items schema.Items
 	userItemIDStr := c.Param("itemID")
 	userItemID, err := strconv.ParseInt(userItemIDStr, 10, 64)
 	if err != nil {
@@ -36,24 +36,20 @@ func GetItem(c echo.Context) error {
 	}
 
 	err = db.NewSelect().
-		Model(&user).
-		Where("uuid = ?", userUID).
-		Scan(ctx);
-	if err != nil {
-		fmt.Println(err)
-		log.Fatal(err)
-	}
-
-	err = db.NewSelect().
-    Model(&item).
-    Relation("Logs").
-    Where("i.user_id = ?", user.ID).
-		Where("i.user_item_id = ?", userItemID).
+    Model(&items).
+		Where("user_item_id = ?", userItemID).
+		Relation("Users", func(q * bun.SelectQuery) *bun.SelectQuery {
+			return q.Where("uuid = ?", userUID)
+		}).
+		Relation("Logs").
     Scan(ctx)
 	if err != nil {
 		fmt.Println(err)
-		log.Fatal(err)
+		if err.Error() == sql.ErrNoRows.Error() {
+			return c.JSON(http.StatusNotFound, map[string]string{"message": "item not found"})
+		}
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
-	return c.JSON(http.StatusOK, item)
+	return c.JSON(http.StatusOK, items)
 }

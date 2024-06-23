@@ -2,8 +2,8 @@ package handler
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
-	"log"
 	"net/http"
 
 	db "github.com/38Koo/shopping_reminder/backend/src/infra/database"
@@ -25,19 +25,22 @@ func GetItemList(c echo.Context) error {
 	userUID := claims.Subject
 
 	ctx := context.Background()
-	var user schema.User
-	var items []schema.Item
+	var user schema.Users
+	var items []schema.Items
 
 	err := db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx);
 	if err != nil {
 		fmt.Println(err)
-		log.Fatal(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
 	err = db.NewSelect().Model(&items).Where("user_id = ?", user.ID).Scan(ctx)
 	if err != nil {
+		if err.Error() == sql.ErrNoRows.Error() {
+			return c.JSON(http.StatusOK, items)
+		}
 		fmt.Println(err)
-		log.Fatal(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 	return c.JSON(http.StatusOK, items)
 }

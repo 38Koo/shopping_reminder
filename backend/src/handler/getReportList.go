@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	db "github.com/38Koo/shopping_reminder/backend/src/infra/database"
@@ -24,16 +23,15 @@ func GetReportList(c echo.Context) error {
 	userUID := claims.Subject
 	
 	ctx := context.Background()
-	var items []schema.Item
+	var items []schema.Items
 
 	err := db.NewSelect().
 		Model(&items).
-		Relation("User", func(q *bun.SelectQuery) *bun.SelectQuery {
+		Relation("Users", func(q *bun.SelectQuery) *bun.SelectQuery {
 			return q.Where("uuid = ?", userUID)
 		}).
 		Scan(ctx)
 
-	fmt.Println(items)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}

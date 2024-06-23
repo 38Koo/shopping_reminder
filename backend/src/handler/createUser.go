@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -64,21 +63,22 @@ func CreateUser(c echo.Context) error {
 	firstExternalAccountData := externalAccountsData[0].(map[string]interface{})
 	name := firstExternalAccountData["family_name"].(string) + firstExternalAccountData["given_name"].(string)
 
-	user := &schema.User{
+	user := &schema.Users{
     UUID: userUID,
     Name: name,
     Email: email,
     CreatedAt: time.Now(),
 	}
 	
-	_, err = db.NewInsert().Model(user).Exec(ctx, &schema.User{
+	_, err = db.NewInsert().Model(user).Exec(ctx, &schema.Users{
 		UUID: userUID,
 		Name: name,
 		Email: email,
+		CanSendMail: true,
 		CreatedAt: time.Now(),
 	})
 	if err != nil {
-		log.Fatal(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
 	return c.JSON(http.StatusOK, nil)

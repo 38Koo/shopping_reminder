@@ -22,12 +22,7 @@ type RequestBodyForAddItem struct {
 	Stock               int64  `json:"stockCount"`
 	Price 						 	int64  `json:"price"`
 	Memo							  string
-	UsageDuration       int32
-	LatestReminder 		  bool
-	UntilNextTimeByDays int32
 	PurchaseDate  			time.Time
-	NextPurchaseDate		time.Time
-	PurchaseCount 			int64	
 }
 
 func AddItem(c echo.Context) error {
@@ -85,31 +80,10 @@ func AddItem(c echo.Context) error {
 	}
 	purchaseDate = purchaseDate.In(location)
 	purchaseDate = time.Date(purchaseDate.Year(), purchaseDate.Month(), purchaseDate.Day(), 0, 0, 0, 0, purchaseDate.Location())
-		
-	var nextPurchaseDate time.Time
-	if reqBody.NextPurchaseDate.IsZero() {
-		nextPurchaseDate = time.Now()
-		nextPurchaseDate = time.Date(nextPurchaseDate.Year(), nextPurchaseDate.Month(), nextPurchaseDate.Day(), 0, 0, 0, 0, nextPurchaseDate.Location())
-	} else {
-		nextPurchaseDateStr := reqBody.NextPurchaseDate.Format(layout)
-		nextPurchaseDateStr = strings.Split(nextPurchaseDateStr, " (")[0]
-		nextPurchaseDate, err = time.Parse(layout, nextPurchaseDateStr)
-		if err != nil {
-			fmt.Println(err)
-			return c.JSON(http.StatusBadRequest, map[string]string{"message": "nextPurchaseDate is invalid"})
-		}
-	}
-	nextPurchaseDate = nextPurchaseDate.In(location)
-	nextPurchaseDate = time.Date(nextPurchaseDate.Year(), nextPurchaseDate.Month(), nextPurchaseDate.Day(), 0, 0, 0, 0, nextPurchaseDate.Location())
-		
-	today := time.Now()
-	today = today.In(location)
-	today = time.Date(today.Year(), today.Month(), today.Day(), 0, 0, 0, 0, today.Location())
-	untilNextTimeByDays := int32(nextPurchaseDate.Sub(today).Hours()) / 24
 
 	userUID := claims.Subject
 	ctx := context.Background()
-	var user schema.User 
+	var user schema.Users 
 
 	// ユーザーIDの取得
 	err = db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx)
@@ -119,8 +93,14 @@ func AddItem(c echo.Context) error {
 	}
 
 	// userID毎のitemIDの最大値を取得
-	var maxItemID schema.Item
-	err = db.NewSelect().Model(&maxItemID).Where("user_id = ?", user.ID).Order("user_item_id DESC").Limit(1).Scan(ctx)
+	var maxItemID schema.Items
+	err = db.NewSelect().
+		Model(&maxItemID).
+		Where("user_id = ?", user.ID).
+		WhereAllWithDeleted().
+		Order("user_item_id DESC").
+		Limit(1).
+		Scan(ctx)
 	if err != nil {
 		if err.Error() == sql.ErrNoRows.Error() {
 			maxItemID.UserItemID = 0
@@ -129,44 +109,40 @@ func AddItem(c echo.Context) error {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 		}
 	}
+
 	if maxItemID.UserItemID == 0 {
 		maxItemID.UserItemID = 1
 	} else {
 		maxItemID.UserItemID += 1
 	}
 
-	var averagePrice int64 = 0
-	if reqBody.Price != 0 {
-		averagePrice = reqBody.Price / reqBody.Stock
-	}
-
-	item := &schema.Item{
+	item := &schema.Items{
 		Name: reqBody.Name,
 		Stock: reqBody.Stock,
 		Memo: reqBody.Memo,
 		UserID: user.ID,
 		UserItemID: maxItemID.UserItemID,
-		LatestReminder: false,
-		UntilNextTimeByDays: untilNextTimeByDays,
-		AveragePrice: float32(averagePrice),
 	}
 
-	purchaseDateLogs := &schema.PurchaseDataLogs{
- 		ItemID: maxItemID.UserItemID,
-		UserID: user.ID,
-		PurchaseDate: purchaseDate,
-		PurchaseCount: 1,
-		Price: reqBody.Price,
-		Amount: reqBody.Stock,
-	}
-
-	_, err = tx.NewInsert().Model(item).Exec(ctx)
+	_, err = tx.NewInsert().
+		Model(item).
+		Returning("user_item_id").
+		Exec(ctx)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
-	_, err = tx.NewInsert().Model(purchaseDateLogs).Exec(ctx)
+	purchaseDateLogs := &schema.PurchaseDataLogs{
+	 UserItemID: item.UserItemID,
+	 UserID: user.ID,
+	 PurchaseDate: purchaseDate,
+	 Price: reqBody.Price,
+	 Amount: reqBody.Stock,
+ }
+	_, err = tx.NewInsert().
+		Model(purchaseDateLogs).
+		Exec(ctx)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})

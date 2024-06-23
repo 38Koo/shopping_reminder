@@ -21,7 +21,7 @@ func EditItem(c echo.Context) error {
 		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "unauthorized"})
 	}
 
-	var item *schema.Item
+	var item *schema.Items
 	if err := c.Bind(&item);err != nil {
 		return err
 	}
@@ -36,7 +36,7 @@ func EditItem(c echo.Context) error {
 
 	userUID := claims.Subject
 	ctx := context.Background()
-	var user schema.User
+	var user schema.Users
 
 	// userIDを取得
 	err = db.NewSelect().Model(&user).Where("uuid = ?", userUID).Scan(ctx)
@@ -44,7 +44,7 @@ func EditItem(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}	
 
-	item = &schema.Item{
+	item = &schema.Items{
 		Name: item.Name,
 		Memo: item.Memo,
 		UserItemID: userItemID,

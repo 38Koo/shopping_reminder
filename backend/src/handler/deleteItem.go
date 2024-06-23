@@ -44,9 +44,9 @@ func DeleteItem(c echo.Context) error {
 	userUID := claims.Subject
 	ctx := context.Background()
 
-	var item schema.Item
+	var item schema.Items
 	var logs schema.PurchaseDataLogs
-	var user schema.User
+	var user schema.Users
 
 	userItemIDStr := c.Param("itemID")
 	userItemID,err := strconv.ParseInt(userItemIDStr, 10, 64)
@@ -58,7 +58,7 @@ func DeleteItem(c echo.Context) error {
 
 	_, err = db.NewDelete().
 		Model(&logs).
-		Where("item_id = (?)", userItemID).
+		Where("user_item_id = (?)", userItemID).
 		Where("user_id = (?)", subQuery).
 		Exec(ctx)
 	if err != nil {
