@@ -17,6 +17,6 @@ type Items struct {
 		CreatedAt           time.Time           `bun:"default:current_timestamp"`
 		UpdatedAt           time.Time           `bun:",nullzero"`
 		DeletedAt           time.Time           `bun:",soft_delete,nullzero"`
-		Logs		            []*PurchaseDataLogs `bun:"rel:has-many,join:user_item_id=item_id,join:user_id=user_id"`
-		Users								*Users               `bun:"rel:belongs-to,join:user_id=id"`
+		Logs		            []*PurchaseDataLogs `bun:"rel:has-many,join:user_item_id=user_item_id,join:user_id=user_id"`
+		Users								*Users              `bun:"rel:belongs-to,join:user_id=id"`
 }

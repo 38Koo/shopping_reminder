@@ -56,7 +56,7 @@ func newRouter() *echo.Echo {
 	api.POST("/edit/item/:itemID", handler.EditItem)
 
 	// ログ編集
-	api.POST("/edit/log/:itemID", handler.EditLog)
+	api.POST("/edit/log", handler.EditLog)
 
 	// レポート取得
 	api.GET("/report", handler.GetReportList)
@@ -65,10 +65,10 @@ func newRouter() *echo.Echo {
 	api.POST("/report/submit", handler.SubmitReport)
 
 	// ログ削除
-	api.POST("/delete/:logID", handler.DeleteLog)
+	api.POST("/delete/log/:logID", handler.DeleteLog)
 
 	// アイテム削除
-	api.POST("/delete/:itemID", handler.DeleteItem)
+	api.POST("/delete/item/:itemID", handler.DeleteItem)
 
 	return e
 }

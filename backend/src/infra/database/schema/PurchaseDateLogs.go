@@ -9,7 +9,7 @@ import (
 type PurchaseDataLogs struct {
 	bun.BaseModel `bun:"table:purchase_data_logs,alias:pdl"`
 	ID 								int64       `bun:"id,autoincrement,pk,notnull"`
-	ItemID 					  int64       `bun:"item_id,notnull"`
+	UserItemID 				int64       `bun:"user_item_id,notnull"`
 	UserID 					  int64       `bun:"user_id,notnull"`
 	PurchaseDate  		time.Time   `bun:"purchase_date,notnull" json:"purchaseDate"`
 	Amount 						int64			  `bun:"amount"`

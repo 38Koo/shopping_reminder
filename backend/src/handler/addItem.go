@@ -94,7 +94,13 @@ func AddItem(c echo.Context) error {
 
 	// userID毎のitemIDの最大値を取得
 	var maxItemID schema.Items
-	err = db.NewSelect().Model(&maxItemID).Where("user_id = ?", user.ID).Order("user_item_id DESC").Limit(1).Scan(ctx)
+	err = db.NewSelect().
+		Model(&maxItemID).
+		Where("user_id = ?", user.ID).
+		WhereAllWithDeleted().
+		Order("user_item_id DESC").
+		Limit(1).
+		Scan(ctx)
 	if err != nil {
 		if err.Error() == sql.ErrNoRows.Error() {
 			maxItemID.UserItemID = 0
@@ -103,6 +109,7 @@ func AddItem(c echo.Context) error {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 		}
 	}
+
 	if maxItemID.UserItemID == 0 {
 		maxItemID.UserItemID = 1
 	} else {
@@ -117,21 +124,25 @@ func AddItem(c echo.Context) error {
 		UserItemID: maxItemID.UserItemID,
 	}
 
-	purchaseDateLogs := &schema.PurchaseDataLogs{
- 		ItemID: maxItemID.UserItemID,
-		UserID: user.ID,
-		PurchaseDate: purchaseDate,
-		Price: reqBody.Price,
-		Amount: reqBody.Stock,
-	}
-
-	_, err = tx.NewInsert().Model(item).Exec(ctx)
+	_, err = tx.NewInsert().
+		Model(item).
+		Returning("user_item_id").
+		Exec(ctx)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
-	_, err = tx.NewInsert().Model(purchaseDateLogs).Exec(ctx)
+	purchaseDateLogs := &schema.PurchaseDataLogs{
+	 UserItemID: item.UserItemID,
+	 UserID: user.ID,
+	 PurchaseDate: purchaseDate,
+	 Price: reqBody.Price,
+	 Amount: reqBody.Stock,
+ }
+	_, err = tx.NewInsert().
+		Model(purchaseDateLogs).
+		Exec(ctx)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})

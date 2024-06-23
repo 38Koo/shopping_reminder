@@ -19,7 +19,7 @@ type ReportItemFromRequest struct {
 	PurchaseDate  			time.Time `json:"PurchaseDate"`
 	PurchaseAmount 			int64     `json:"PurchaseAmount"`
 	Price 							int64     `json:"Price"`
-	PurchaseCount 			int64     `json:"PurchaseCount"`
+	LogID 							int64     `json:"PurchaseCount"`
 }
 
 type RequestBodyForReportSubmit struct {
@@ -27,7 +27,7 @@ type RequestBodyForReportSubmit struct {
 }
 
 type maxCount struct {
-	ID int64				`bun:"item_id"`
+	ID int64				`bun:"user_item_id"`
 	MaxCount int64	`bun:"max"`
 }
 
@@ -72,9 +72,8 @@ func SubmitReport(c echo.Context) error {
 	err = db.NewSelect().
 		Model(&item).
 		ModelTableExpr("purchase_data_logs AS pdl").
-		ColumnExpr("item_id, max(purchasecount)").
-		Where("item_id IN (?)", bun.In(userItemIDs)).
-		Group("item_id","user_id").
+		ColumnExpr("user_item_id").
+		Where("user_item_id IN (?)", bun.In(userItemIDs)).
 		Scan(ctx)
 		
 	if err != nil {
@@ -114,7 +113,7 @@ func SubmitReport(c echo.Context) error {
 		price = log.Price
 
 		log := schema.PurchaseDataLogs{
-			ItemID: item[i].ID,
+			UserItemID: item[i].ID,
 			PurchaseDate: purchaseDate,
 			Amount: amount,
 			Price: price,

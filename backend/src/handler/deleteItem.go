@@ -58,7 +58,7 @@ func DeleteItem(c echo.Context) error {
 
 	_, err = db.NewDelete().
 		Model(&logs).
-		Where("item_id = (?)", userItemID).
+		Where("user_item_id = (?)", userItemID).
 		Where("user_id = (?)", subQuery).
 		Exec(ctx)
 	if err != nil {

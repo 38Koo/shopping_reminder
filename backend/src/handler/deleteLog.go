@@ -15,8 +15,6 @@ func DeleteLog(c echo.Context) error {
 	db := db.SetUpDB()
 	defer db.Close()
 
-
-
 	ctx := context.Background()
 
 	var log schema.PurchaseDataLogs
@@ -24,7 +22,7 @@ func DeleteLog(c echo.Context) error {
 	logIDStr := c.Param("logID")
 	logID, err := strconv.ParseInt(logIDStr, 10, 64)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"message": "purchaseCount is invalid"})
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "logID is invalid"})
 	}
 
 	log = schema.PurchaseDataLogs{

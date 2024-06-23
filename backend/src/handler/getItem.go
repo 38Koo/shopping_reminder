@@ -27,7 +27,7 @@ func GetItem(c echo.Context) error {
 	userUID := claims.Subject
 
 	ctx := context.Background()
-	var item schema.Items
+	var items schema.Items
 	userItemIDStr := c.Param("itemID")
 	userItemID, err := strconv.ParseInt(userItemIDStr, 10, 64)
 	if err != nil {
@@ -36,12 +36,12 @@ func GetItem(c echo.Context) error {
 	}
 
 	err = db.NewSelect().
-    Model(&item).
-    Relation("Logs").
+    Model(&items).
+		Where("user_item_id = ?", userItemID).
 		Relation("Users", func(q * bun.SelectQuery) *bun.SelectQuery {
 			return q.Where("uuid = ?", userUID)
 		}).
-		Where("i.user_item_id = ?", userItemID).
+		Relation("Logs").
     Scan(ctx)
 	if err != nil {
 		fmt.Println(err)
@@ -51,5 +51,5 @@ func GetItem(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Internal Server Error"})
 	}
 
-	return c.JSON(http.StatusOK, item)
+	return c.JSON(http.StatusOK, items)
 }
