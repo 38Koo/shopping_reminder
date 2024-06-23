@@ -21,6 +21,7 @@ export const CardNoItem = () => {
         onClick={() => {
           router.push("/add");
         }}
+        zIndex={1000}
       >
         Add Item
       </Button>

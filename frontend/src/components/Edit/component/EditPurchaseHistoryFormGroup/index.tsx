@@ -15,6 +15,10 @@ export const EditPurchaseHistoryFormGroup = ({
   token,
   data,
 }: EditPurchaseHistoryFormGroupProps) => {
+  if (!data.Logs) {
+    return null;
+  }
+
   const logsIncludingValidDate = generateArrayIncludingValidDate(data.Logs);
 
   return (
@@ -29,11 +33,7 @@ export const EditPurchaseHistoryFormGroup = ({
       <EditShortDescription data={data} />
       <VStack>
         {logsIncludingValidDate.map((history) => (
-          <EditHistoryFormCard
-            key={history.PurchaseCount}
-            data={history}
-            token={token}
-          />
+          <EditHistoryFormCard key={history.ID} data={history} token={token} />
         ))}
       </VStack>
     </Stack>

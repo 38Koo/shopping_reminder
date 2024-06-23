@@ -6,7 +6,7 @@ type UseDeleteItemArgs = {
 
 export const useDeleteItem = ({ itemID }: UseDeleteItemArgs) => {
   const { trigger, error } = useSWRMutation(
-    `http://localhost:8989/api/delete/${itemID}`,
+    `http://localhost:8989/api/delete/item/${itemID}`,
     deleteItem
   );
 

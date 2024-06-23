@@ -31,19 +31,18 @@ export const CardItem = ({ item }: CardItemItem) => {
           <Text>
             残り
             <Box as="span" fontSize="48px" fontWeight="bold">
-              5
+              ?
             </Box>
             日
           </Text>
           <List>
-            {/* // TODO: dataに置き換え */}
-            <ListItem>在庫: 1</ListItem>
-            <ListItem>買替日数/個: 30日</ListItem>
-            <ListItem>最終購入日: 2024/01/28</ListItem>
-            <ListItem>在庫切れ予定日: 2024/02/28</ListItem>
+            <ListItem>在庫: {item.stockCount}</ListItem>
+            <ListItem>平均購入価格: {}</ListItem>
+            <ListItem>平均消費日数: {}</ListItem>
           </List>
         </CardBody>
-        <CardFooter position="absolute" bottom={1} right={1}>
+        {/* // NOTE Add Itemボタンのコンテナと重なった時に、重なった部分が押下できなくなるのでzindexを追加*/}
+        <CardFooter position="absolute" bottom={1} right={1} zIndex={500}>
           <Link href={`/edit/${item.UserItemID}`}>
             <Button as="span" bg="primary" color="white">
               Edit

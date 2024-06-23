@@ -12,20 +12,17 @@ type DeleteLogModalProps = {
   isOpen: boolean;
   onClose: () => void;
   token: string | null;
-  itemID: number;
-  purchaseCount: number;
+  logID: number;
 };
 
 export const DeleteLogModal = ({
   isOpen,
   onClose,
   token,
-  itemID,
-  purchaseCount,
+  logID,
 }: DeleteLogModalProps) => {
   const { trigger, error } = useDeleteLog({
-    itemID: itemID,
-    purchaseCount: purchaseCount,
+    logID: logID,
   });
 
   const handleDelete = () => {

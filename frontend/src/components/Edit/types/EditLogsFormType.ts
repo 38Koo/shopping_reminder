@@ -12,7 +12,7 @@ export const editLogsFormSchema = ({
   nextLogDate,
 }: EditLogsFormSchemaArgs) =>
   z.object({
-    PurchaseCount: z.number(),
+    ID: z.number(),
     purchaseDate: z.date().superRefine((selectDate, ctx) => {
       if (
         !!previousLogDate &&

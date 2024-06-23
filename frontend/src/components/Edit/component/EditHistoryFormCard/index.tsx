@@ -46,7 +46,7 @@ export const EditHistoryFormCard = ({
       })
     ),
     defaultValues: {
-      PurchaseCount: data.PurchaseCount,
+      ID: data.ID,
       purchaseDate: new Date(data.purchaseDate),
       Price: data.Price,
       Amount: data.Amount,
@@ -64,7 +64,7 @@ export const EditHistoryFormCard = ({
   return (
     <Form
       control={control}
-      action={`http://localhost:8989/api/edit/log/${itemID}`}
+      action="http://localhost:8989/api/edit/log"
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ export const EditHistoryFormCard = ({
       >
         <Box position="absolute" top={4} left={6}>
           <FormControl>
-            <Text {...register("PurchaseCount")}>{data.PurchaseCount}</Text>
+            <Text {...register("ID")}>{data.ID}</Text>
           </FormControl>
         </Box>
         <Box position="absolute" top={4} right={6}>
@@ -96,8 +96,7 @@ export const EditHistoryFormCard = ({
             isOpen={isOpen}
             onClose={onClose}
             token={token}
-            itemID={Number(itemID)}
-            purchaseCount={data.PurchaseCount}
+            logID={data.ID}
           />
         </Box>
         <HStack>

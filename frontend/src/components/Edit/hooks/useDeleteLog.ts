@@ -1,12 +1,11 @@
 import useSWRMutation from "swr/mutation";
 type UseDeleteItemArgs = {
-  itemID: number;
-  purchaseCount: number;
+  logID: number;
 };
 
-export const useDeleteLog = ({ itemID, purchaseCount }: UseDeleteItemArgs) => {
+export const useDeleteLog = ({ logID }: UseDeleteItemArgs) => {
   const { trigger, error } = useSWRMutation(
-    `http://localhost:8989/api/delete/${itemID}/${purchaseCount}`,
+    `http://localhost:8989/api/delete/log/${logID}`,
     deleteLog
   );
 
