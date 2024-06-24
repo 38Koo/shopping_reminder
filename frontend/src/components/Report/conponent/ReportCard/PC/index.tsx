@@ -1,5 +1,6 @@
 import { DatePicker } from "@yamada-ui/calendar";
 import {
+  AccordionPanel,
   Box,
   ErrorMessage,
   FormControl,
@@ -18,7 +19,7 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
   const formMethods = useFormContext<ReportFormType>();
 
   return (
-    <Box
+    <AccordionPanel
       width="auto"
       padding="6"
       border="solid 1px #e5e7eb"
@@ -26,7 +27,7 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
       boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
       gap={20}
     >
-      <HStack w="100%" justifyContent="space-evenly">
+      <HStack w="100%" justifyContent="space-evenly" align="baseline">
         <FormControl>
           <HStack gap="1" align={"end"}>
             <Label width="60px" mr={0}>
@@ -67,8 +68,10 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
                 ?.message}
           </ErrorMessage>
         </FormControl>
-        <FormControl>
-          <HStack gap="1" align={"end"}>
+        {/* // NOTE: Accordionの中でFormControlを使うと子要素の
+        overflow:visibleが効かなくなるのでBoxで代用する */}
+        <Box>
+          <HStack gap="1">
             <Label width="60px" mr={0}>
               購入日:
             </Label>
@@ -83,8 +86,8 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
               formMethods.formState.errors.report?.[mapIndex]?.PurchaseDate
                 ?.message}
           </ErrorMessage>
-        </FormControl>
+        </Box>
       </HStack>
-    </Box>
+    </AccordionPanel>
   );
 };

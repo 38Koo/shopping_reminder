@@ -1,4 +1,14 @@
-import { Accordion, AccordionItem, Box, Button, Stack } from "@yamada-ui/react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionLabel,
+  AccordionPanel,
+  Box,
+  Button,
+  Container,
+  Stack,
+  Text,
+} from "@yamada-ui/react";
 import { Form, FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -39,7 +49,7 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
     rules: { minLength: 1 },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     console.log(data);
   };
 
@@ -59,15 +69,12 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
           <Stack gap={4}>
             <Accordion isMultiple>
               {fields.map((field, index) => (
-                <AccordionItem
-                  label={data[index].itemName}
-                  minW="100%"
-                  key={field.id}
-                >
+                <AccordionItem>
+                  <AccordionLabel>{data[index].itemName}</AccordionLabel>
                   {isSp ? (
-                    <ReportCardForSP mapIndex={index} />
+                    <ReportCardForSP mapIndex={index} key={field.id} />
                   ) : (
-                    <ReportCardForPC mapIndex={index} />
+                    <ReportCardForPC mapIndex={index} key={field.id} />
                   )}
                 </AccordionItem>
               ))}
