@@ -71,7 +71,7 @@ export const AddFormGroup = () => {
         <Divider pt="5" />
         <FormControl isInvalid={!!errors.stockCount} isRequired>
           <Label fontWeight="bold" fontSize="20px">
-            在庫数
+            購入数
           </Label>
           <Input
             type="number"
@@ -111,29 +111,6 @@ export const AddFormGroup = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
-              />
-            )}
-          />
-          <ErrorMessage>
-            {errors.purchaseDate && errors.purchaseDate.message}
-          </ErrorMessage>
-        </FormControl>
-        <Divider pt="5" />
-        <FormControl isInvalid={!!errors.purchaseDate} label="購入日">
-          <Label fontWeight="bold" fontSize="20px">
-            次回購入日
-          </Label>
-          <Controller
-            name="NextPurchaseDate"
-            control={control}
-            render={({ field: { onChange, onBlur, value, ...rest } }) => (
-              <DatePicker
-                placeholder="pick a date"
-                width="200px"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                {...rest}
               />
             )}
           />

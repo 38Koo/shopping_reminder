@@ -29,6 +29,7 @@ export const Edit = () => {
   if (!data) {
     return null;
   }
+
   return (
     <Box justifyContent="center">
       <Stack width="100%">

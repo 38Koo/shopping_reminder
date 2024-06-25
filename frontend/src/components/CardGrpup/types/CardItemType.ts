@@ -4,7 +4,7 @@
 export type CardItemType = {
   ID: string;
   itemName: string;
-  Stock: number;
+  stockCount: number;
   LastPurchaseDate: Date;
   UserItemID: number;
 };
