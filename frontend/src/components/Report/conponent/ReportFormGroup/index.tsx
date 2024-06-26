@@ -18,6 +18,7 @@ import {
 import { ReportCardForPC } from "../ReportCard/PC";
 import { ReportCardForSP } from "../ReportCard/SP";
 import { useCustomMediaQuery } from "../../../../hooks/useMediaQuery";
+import { useRouter } from "next/router";
 
 type ReportFormGroupProps = {
   data: any[];
@@ -40,6 +41,7 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
     mode: "onSubmit",
     resolver: zodResolver(reportFormSchemaArray),
   });
+  const router = useRouter();
 
   const { isSp } = useCustomMediaQuery();
 
@@ -65,6 +67,8 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           }}
+          onSuccess={() => router.push("/list")}
+          onError={() => alert("エラーが発生しました")}
         >
           <Stack gap={4}>
             <Accordion isMultiple>
