@@ -14,6 +14,7 @@ import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddFromType, addFormSchema } from "../../types/AddFormType";
+import { useRouter } from "next/router";
 
 export const AddFormGroup = () => {
   const {
@@ -26,6 +27,7 @@ export const AddFormGroup = () => {
   const [token, setToken] = useState<string | null>(null);
 
   const { getToken } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     // FIXME: tokenをreq時に生成するようにする
@@ -50,6 +52,8 @@ export const AddFormGroup = () => {
         console.log(data);
       }}
       control={control}
+      onSuccess={() => router.push("/list")}
+      onError={() => alert("エラーが発生しました")}
     >
       <Stack
         minW="768px"

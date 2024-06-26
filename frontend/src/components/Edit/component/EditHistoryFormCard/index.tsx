@@ -74,6 +74,8 @@ export const EditHistoryFormCard = ({
       onSubmit={(data) => {
         console.log(data);
       }}
+      onSuccess={() => alert("更新しました")}
+      onError={() => alert("エラーが発生しました")}
     >
       <HStack
         minW="400px"

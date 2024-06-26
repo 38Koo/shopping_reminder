@@ -53,6 +53,8 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
       }}
       onSubmit={(data) => console.log(data)}
       control={control}
+      onSuccess={() => alert("更新しました")}
+      onError={() => alert("エラーが発生しました")}
     >
       <Stack
         minW="600px"
