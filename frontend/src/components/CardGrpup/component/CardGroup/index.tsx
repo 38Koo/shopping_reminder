@@ -1,9 +1,9 @@
 import { Box, SimpleGrid } from "@yamada-ui/react";
 import { CardItem } from "../CardItem";
-import { CardItemType } from "../../types/CardItemType";
+import { CardDataType } from "../../types/CardItemType";
 
 type CardGroupProps = {
-  list: CardItemType[];
+  list: CardDataType[];
 };
 
 export const CardGroup = ({ list }: CardGroupProps) => {
@@ -16,7 +16,7 @@ export const CardGroup = ({ list }: CardGroupProps) => {
         gap="md"
       >
         {list.map((item, index) => {
-          return <CardItem key={index} item={item} />;
+          return <CardItem key={index} data={item} />;
         })}
       </SimpleGrid>
     </Box>
