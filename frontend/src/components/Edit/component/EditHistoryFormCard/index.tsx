@@ -37,7 +37,6 @@ export const EditHistoryFormCard = ({
     control,
     register,
     formState: { errors },
-    resetField,
   } = useForm<EditLogFormType>({
     resolver: zodResolver(
       editLogsFormSchema({

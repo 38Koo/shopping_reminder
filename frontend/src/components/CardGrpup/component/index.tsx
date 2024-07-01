@@ -1,9 +1,9 @@
 import { CardGroup } from "./CardGroup";
-import { CardItemType } from "../types/CardItemType";
 import { CardFooter } from "./CardFooter";
+import { CardDataType } from "../types/CardItemType";
 
 type CardProps = {
-  list: CardItemType[];
+  list: CardDataType[];
 };
 
 export const Card = ({ list }: CardProps) => {
