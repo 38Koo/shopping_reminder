@@ -115,14 +115,14 @@ func GetItemList(c echo.Context) error {
 			daysLeftUntilNextPurchase = int(time.Since(log.Latest.AddDate(0, 0, int(math.Floor(averageConsume)))).Hours() / 24 )
 		}
 			
-			logSummary[index].AverageConsume = averageConsume
-			logSummary[index].DaysLeftUntilNextPurchase = daysLeftUntilNextPurchase
-			
-			itemWithLogSummary = append(itemWithLogSummary, ItemWithLogSummary{
-				Item: items[index],
-				LogSummary: logSummary[index],
-			})
-		}
+		logSummary[index].AverageConsume = averageConsume
+		logSummary[index].DaysLeftUntilNextPurchase = daysLeftUntilNextPurchase
+		
+		itemWithLogSummary = append(itemWithLogSummary, ItemWithLogSummary{
+			Item: items[index],
+			LogSummary: logSummary[index],
+		})
+	}
 		
 		return c.JSON(http.StatusOK, itemWithLogSummary)
 	}

@@ -78,7 +78,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
           <Label fontWeight="bold" fontSize="20px">
             品名
           </Label>
-          <Input defaultValue={data.itemName} {...register("itemName")} />
+          <Input defaultValue={data.item.itemName} {...register("itemName")} />
           <ErrorMessage>
             {errors.itemName && errors.itemName.message}
           </ErrorMessage>
@@ -90,7 +90,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
           </Label>
           <HStack align="end" justifyContent="center">
             <Text fontSize={"36px"} fontWeight="bold">
-              {data.stockCount}
+              {data.item.stockCount}
             </Text>
             <Text>個</Text>
           </HStack>
@@ -102,7 +102,9 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
         <HStack align="end" justifyContent="center">
           <Text>あと</Text>
           <Text fontSize={"36px"} fontWeight="bold">
-            {data.UntilNextTimeByDays}
+            {data.logSummary.DaysLeftUntilNextPurchase === -1
+              ? "?"
+              : data.logSummary.DaysLeftUntilNextPurchase}
           </Text>
           <Text>日</Text>
         </HStack>
@@ -115,7 +117,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             <HStack>
               <Input
                 type="number"
-                defaultValue={data.AveragePrice}
+                defaultValue={data.logSummary.AveragePrice}
                 width="100px"
                 disabled
               />
@@ -132,7 +134,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             <HStack>
               <Input
                 type="number"
-                defaultValue={data.UsageDuration}
+                defaultValue={data.logSummary.AverageConsume}
                 width="100px"
                 disabled
               />
@@ -146,7 +148,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             備考
           </Label>
           <Textarea
-            defaultValue={data.Memo}
+            defaultValue={data.item.Memo}
             placeholder="備考を入力してください"
             {...register("memo")}
           />

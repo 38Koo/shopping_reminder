@@ -7,7 +7,9 @@ import { generateArrayIncludingValidDate } from "../../helper/generateArrayInclu
 type EditPurchaseHistoryFormGroupProps = {
   token: string | null;
   data: {
-    Logs: EditLogFormType[];
+    item: {
+      Logs: EditLogFormType[];
+    };
   };
 };
 
@@ -15,11 +17,13 @@ export const EditPurchaseHistoryFormGroup = ({
   token,
   data,
 }: EditPurchaseHistoryFormGroupProps) => {
-  if (!data.Logs) {
+  if (!data.item.Logs) {
     return null;
   }
 
-  const logsIncludingValidDate = generateArrayIncludingValidDate(data.Logs);
+  const logsIncludingValidDate = generateArrayIncludingValidDate(
+    data.item.Logs
+  );
 
   return (
     <Stack
