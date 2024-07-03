@@ -2,7 +2,6 @@ import { Stack, VStack } from "@yamada-ui/react";
 import { EditHistoryFormCard } from "../EditHistoryFormCard";
 import { EditShortDescription } from "../EditShortDescription";
 import { EditLogFormType } from "../../types/EditLogsFormType";
-import { generateArrayIncludingValidDate } from "../../helper/generateArrayIncludingValidDate";
 
 type EditPurchaseHistoryFormGroupProps = {
   token: string | null;
@@ -21,10 +20,6 @@ export const EditPurchaseHistoryFormGroup = ({
     return null;
   }
 
-  const logsIncludingValidDate = generateArrayIncludingValidDate(
-    data.item.Logs
-  );
-
   return (
     <Stack
       minW="600px"
@@ -36,7 +31,7 @@ export const EditPurchaseHistoryFormGroup = ({
     >
       <EditShortDescription data={data} />
       <VStack>
-        {logsIncludingValidDate.map((history) => (
+        {data.item.Logs.map((history, index) => (
           <EditHistoryFormCard key={history.ID} data={history} token={token} />
         ))}
       </VStack>

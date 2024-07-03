@@ -22,10 +22,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { DeleteLogModal } from "../DeleteLogModal";
 
 type EditHistoryFormCardProps = {
-  data: EditLogFormType & {
-    previousLogDate: Date;
-    nextLogDate: Date;
-  };
+  data: EditLogFormType;
   token: string | null;
 };
 
@@ -35,18 +32,12 @@ export const EditHistoryFormCard = ({
 }: EditHistoryFormCardProps) => {
   const {
     control,
-    register,
     formState: { errors },
   } = useForm<EditLogFormType>({
-    resolver: zodResolver(
-      editLogsFormSchema({
-        previousLogDate: data.previousLogDate,
-        nextLogDate: data.nextLogDate,
-      })
-    ),
+    resolver: zodResolver(editLogsFormSchema()),
     defaultValues: {
       ID: data.ID,
-      purchaseDate: new Date(data.purchaseDate),
+      purchaseDate: new Date(data.purchaseDate ?? ""),
       Price: data.Price,
       Amount: data.Amount,
     },
@@ -86,11 +77,6 @@ export const EditHistoryFormCard = ({
         align="end"
         position="relative"
       >
-        <Box position="absolute" top={4} left={6}>
-          <FormControl>
-            <Text {...register("ID")}>{data.ID}</Text>
-          </FormControl>
-        </Box>
         <Box position="absolute" top={4} right={6}>
           <Icon icon={faTrashCan} size="xl" color="gray" onClick={onOpen} />
           <DeleteLogModal
