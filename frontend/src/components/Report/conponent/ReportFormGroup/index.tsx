@@ -2,10 +2,8 @@ import {
   Accordion,
   AccordionItem,
   AccordionLabel,
-  AccordionPanel,
   Box,
   Button,
-  Container,
   Stack,
   Text,
 } from "@yamada-ui/react";
@@ -70,15 +68,20 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
           onSuccess={() => router.push("/list")}
           onError={() => alert("エラーが発生しました")}
         >
+          {formMethods.formState.errors.report?.root?.message && (
+            <Text color="red">
+              {formMethods.formState.errors.report.root.message}
+            </Text>
+          )}
           <Stack gap={4}>
             <Accordion isMultiple>
               {fields.map((field, index) => (
-                <AccordionItem>
+                <AccordionItem key={field.id}>
                   <AccordionLabel>{data[index].itemName}</AccordionLabel>
                   {isSp ? (
-                    <ReportCardForSP mapIndex={index} key={field.id} />
+                    <ReportCardForSP mapIndex={index} />
                   ) : (
-                    <ReportCardForPC mapIndex={index} key={field.id} />
+                    <ReportCardForPC mapIndex={index} />
                   )}
                 </AccordionItem>
               ))}

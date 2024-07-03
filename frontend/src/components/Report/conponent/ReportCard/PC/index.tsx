@@ -7,6 +7,7 @@ import {
   HStack,
   Input,
   Label,
+  Text,
 } from "@yamada-ui/react";
 import { Controller, useFormContext } from "react-hook-form";
 import { ReportFormType } from "../../../types/ReportFormtypes";
@@ -30,7 +31,7 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
       <HStack w="100%" justifyContent="space-evenly" align="baseline">
         <FormControl>
           <HStack gap="1" align={"end"}>
-            <Label width="60px" mr={0}>
+            <Label width="70px" mr={0} isRequired>
               購入数:
             </Label>
             <Controller
@@ -50,7 +51,7 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
         </FormControl>
         <FormControl>
           <HStack gap="1" align={"end"}>
-            <Label width="60px" mr={0}>
+            <Label width="60px" mr={0} isRequired>
               価格:
             </Label>
             <Controller
@@ -72,8 +73,12 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
         overflow:visibleが効かなくなるのでBoxで代用する */}
         <Box>
           <HStack gap="1">
-            <Label width="60px" mr={0}>
+            <Label width="70px" mr={0}>
+              {/* // NOTE: FormControlを使わないと必須マークに色がつかない */}
               購入日:
+              <Text color="red" display="inline-block" pl={1}>
+                *
+              </Text>
             </Label>
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}
