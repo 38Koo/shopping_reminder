@@ -10,7 +10,7 @@ export type EditLogFormType = z.infer<ReturnType<typeof editLogsFormSchema>>;
 export const editLogsFormSchema = () =>
   z.object({
     ID: z.number(),
-    purchaseDate: z.date().optional(),
+    purchaseDate: z.date(),
     Price: z.preprocess(
       (v) => Number(v),
       z

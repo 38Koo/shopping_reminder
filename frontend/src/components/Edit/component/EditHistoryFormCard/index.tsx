@@ -6,6 +6,7 @@ import {
   FormControl,
   HStack,
   Input,
+  Label,
   Text,
   VStack,
   useDisclosure,
@@ -89,8 +90,8 @@ export const EditHistoryFormCard = ({
         <HStack>
           <VStack>
             <FormControl isInvalid={!!errors.purchaseDate} isRequired>
-              <HStack>
-                <Text width="60px">購入日 :</Text>
+              <HStack alignItems="end">
+                <Label width="70px">購入日 :</Label>
                 <Controller
                   name="purchaseDate"
                   control={control}
@@ -118,8 +119,8 @@ export const EditHistoryFormCard = ({
               </ErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.Price} isRequired>
-              <HStack>
-                <Text width="60px">価格 :</Text>
+              <HStack alignItems="end">
+                <Label width="70px">価格 :</Label>
                 <Controller
                   name="Price"
                   control={control}
@@ -133,8 +134,8 @@ export const EditHistoryFormCard = ({
               </ErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.Amount} isRequired>
-              <HStack>
-                <Text width="60px">数量 :</Text>
+              <HStack alignItems="end">
+                <Label width="70px">数量 :</Label>
                 <Controller
                   name="Amount"
                   control={control}
