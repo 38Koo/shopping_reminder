@@ -87,7 +87,7 @@ export const AddFormGroup = () => {
           </ErrorMessage>
         </FormControl>
         <Divider pt="5" />
-        <FormControl isInvalid={!!errors.stockCount}>
+        <FormControl isInvalid={!!errors.price} isRequired>
           <Label fontWeight="bold" fontSize="20px">
             価格
           </Label>
@@ -96,12 +96,14 @@ export const AddFormGroup = () => {
             placeholder="複数購入した場合は、合計金額を入力してください"
             {...register("price")}
           />
-          <ErrorMessage>
-            {errors.stockCount && errors.stockCount.message}
-          </ErrorMessage>
+          <ErrorMessage>{errors.price && errors.price.message}</ErrorMessage>
         </FormControl>
         <Divider pt="5" />
-        <FormControl isInvalid={!!errors.purchaseDate} label="購入日">
+        <FormControl
+          isInvalid={!!errors.purchaseDate}
+          label="購入日"
+          isRequired
+        >
           <Label fontWeight="bold" fontSize="20px">
             購入日
           </Label>

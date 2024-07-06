@@ -22,7 +22,6 @@ import {
 } from "../../types/EditItemFormType";
 import { Icon } from "@yamada-ui/fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { DeleteLogModal } from "../DeleteLogModal";
 import { DeleteItemModal } from "../DeleteItemModal";
 
 type EditFormGroupProps = {
@@ -74,14 +73,12 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             itemID={Number(itemID)}
           />
         </Box>
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={!!errors.itemName}>
           <Label fontWeight="bold" fontSize="20px">
             品名
           </Label>
           <Input defaultValue={data.item.itemName} {...register("itemName")} />
-          <ErrorMessage>
-            {errors.itemName && errors.itemName.message}
-          </ErrorMessage>
+          <ErrorMessage>{errors.itemName?.message}</ErrorMessage>
         </FormControl>
         <Divider pt="5" />
         <Stack>
@@ -143,7 +140,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
           </Stack>
         </HStack>
         <Divider pt="5" />
-        <FormControl>
+        <FormControl isInvalid={!!errors.memo}>
           <Label fontWeight="bold" fontSize="20px">
             備考
           </Label>
@@ -152,7 +149,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
             placeholder="備考を入力してください"
             {...register("memo")}
           />
-          <ErrorMessage>{errors.memo && errors.memo.message}</ErrorMessage>
+          <ErrorMessage>{errors.memo?.message}</ErrorMessage>
         </FormControl>
         <Button type="submit" bg="lime" fontWeight="bold" width="64px">
           Submit

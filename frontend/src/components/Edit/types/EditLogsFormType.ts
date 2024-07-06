@@ -7,32 +7,10 @@ export type EditLogsFormSchemaArgs = {
 
 export type EditLogFormType = z.infer<ReturnType<typeof editLogsFormSchema>>;
 
-export const editLogsFormSchema = ({
-  previousLogDate,
-  nextLogDate,
-}: EditLogsFormSchemaArgs) =>
+export const editLogsFormSchema = () =>
   z.object({
     ID: z.number(),
-    purchaseDate: z.date().superRefine((selectDate, ctx) => {
-      if (
-        !!previousLogDate &&
-        selectDate.getTime() <= previousLogDate.getTime()
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `購入日は${previousLogDate}より後にしてください。`,
-          fatal: true,
-        });
-      }
-
-      if (!!nextLogDate && selectDate.getTime() >= nextLogDate.getTime()) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `購入日は${nextLogDate}より前にしてください。`,
-          fatal: true,
-        });
-      }
-    }),
+    purchaseDate: z.date(),
     Price: z.preprocess(
       (v) => Number(v),
       z
