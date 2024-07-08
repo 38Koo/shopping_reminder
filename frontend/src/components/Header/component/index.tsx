@@ -3,9 +3,15 @@ import { SignOutButton } from "@clerk/nextjs";
 import { Button } from "@yamada-ui/react";
 import { useRouter } from "next/router";
 import { Logo } from "./Logo";
+import { Icon } from "@yamada-ui/fontawesome";
+import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
+import { faFilePen } from "@fortawesome/free-solid-svg-icons";
 
 export const Header = () => {
   const router = useRouter();
+
+  const isListPage = router.pathname === "/list";
+  const isReportPage = router.pathname === "/report";
 
   return (
     <Box
@@ -36,7 +42,19 @@ export const Header = () => {
         <Box paddingLeft="30px">
           <Logo />
         </Box>
-        <Box>
+        <HStack gap={10}>
+          <Icon
+            icon={faHouseChimney}
+            size="5xl"
+            color={isListPage ? "gray" : "black"}
+            onClick={() => !isListPage && router.push("/list")}
+          ></Icon>
+          <Icon
+            icon={faFilePen}
+            size="5xl"
+            color={isReportPage ? "gray" : "black"}
+            onClick={() => !isReportPage && router.push("/report")}
+          ></Icon>
           <SignOutButton>
             <Button
               p="md"
@@ -48,7 +66,7 @@ export const Header = () => {
               Sign Out
             </Button>
           </SignOutButton>
-        </Box>
+        </HStack>
       </HStack>
     </Box>
   );
