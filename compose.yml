@@ -9,7 +9,7 @@ services:
       - ./backend/.env
     tty: true
     ports:
-      - 8989:8989
+      - 8080:8080
     volumes:
       - type: bind
         source: ./
