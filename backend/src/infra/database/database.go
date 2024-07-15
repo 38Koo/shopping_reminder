@@ -18,7 +18,18 @@ func SetUpDB() *bun.DB {
 	dbName := os.Getenv("POSTGRES_DB")
 	dbUserName := os.Getenv("POSTGRES_USER")
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
-	connStr := fmt.Sprintf("host=db user=%s password=%s dbname=%s sslmode=disable", dbUserName,dbPassword, dbName)
+	dbHost := os.Getenv("DATABASE_HOST")
+	dbPort := os.Getenv("DATABASE_PORT")
+	serverEnvironment := os.Getenv("ENVIRONMENT")
+	var sslMode string
+	if serverEnvironment == "local" {
+		sslMode = "disable"
+	} else {
+		sslMode = "require"
+	}
+
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+	 dbHost, dbPort, dbUserName,dbPassword, dbName, sslMode)
 	sqlDB, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
