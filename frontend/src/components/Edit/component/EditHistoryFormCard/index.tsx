@@ -55,7 +55,7 @@ export const EditHistoryFormCard = ({
   return (
     <Form
       control={control}
-      action="http://localhost:8989/api/edit/log"
+      action={`${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/api/edit/log`}
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,
