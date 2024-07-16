@@ -44,7 +44,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Form
-      action={`http://localhost:8989/api/edit/item/${itemID}`}
+      action={`${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/api/edit/item/${itemID}`}
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,

@@ -4,6 +4,9 @@ import { authenticatedRequestFetcher } from "../../../utils/authenticatedRequest
 export const getReportList = () => {
   const fetcher = authenticatedRequestFetcher();
 
-  const { data, error } = useSWR("http://localhost:8989/api/report", fetcher);
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/api/report`,
+    fetcher
+  );
   return { data, error };
 };

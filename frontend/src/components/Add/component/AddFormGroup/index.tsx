@@ -41,7 +41,7 @@ export const AddFormGroup = () => {
 
   return (
     <Form
-      action={"http://localhost:8989/api/add/item"}
+      action={`${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/add/item`}
       method="post"
       headers={{
         Authorization: `Bearer ${token}`,

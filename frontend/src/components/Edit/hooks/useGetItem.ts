@@ -7,7 +7,7 @@ export const useGetItem = (itemID: string | string[] | undefined) => {
 
   const { data, error } = useSWR(
     !!itemID && !Array.isArray(itemID)
-      ? `http://localhost:8989/api/item/${itemID}`
+      ? `${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/api/item/${itemID}`
       : null,
     fetcher
   );

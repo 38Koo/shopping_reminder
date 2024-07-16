@@ -60,7 +60,7 @@ export const ReportFormGroup = ({ data, token }: ReportFormGroupProps) => {
           control={formMethods.control}
           onSubmit={onSubmit}
           method="post"
-          action={`http://localhost:8989/api/report/submit`}
+          action={`${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/api/report/submit`}
           headers={{
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

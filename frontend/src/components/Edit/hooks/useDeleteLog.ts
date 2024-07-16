@@ -5,7 +5,7 @@ type UseDeleteItemArgs = {
 
 export const useDeleteLog = ({ logID }: UseDeleteItemArgs) => {
   const { trigger, error } = useSWRMutation(
-    `http://localhost:8989/api/delete/log/${logID}`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_DOMAIN}/api/delete/log/${logID}`,
     deleteLog
   );
 
