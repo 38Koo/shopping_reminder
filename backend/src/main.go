@@ -7,5 +7,5 @@ func main(){
 	db.CreateTable()
 
 	router := newRouter()
-	router.Logger.Fatal(router.Start(":8989"))
+	router.Logger.Fatal(router.Start(":8080"))
 }
