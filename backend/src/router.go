@@ -16,9 +16,10 @@ func newRouter() *echo.Echo {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	allowOrigin := os.Getenv("ALLOW_ORIGIN")
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000"},
+		AllowOrigins: []string{allowOrigin},
 		AllowMethods: []string{http.MethodGet, http.MethodPost},
 		AllowCredentials: true,
 	}))
