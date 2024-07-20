@@ -16,7 +16,7 @@ func newRouter() *echo.Echo {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	allowOrigin := os.Getenv("ALLOW_ORIGIN")
+	allowOrigin := os.Getenv("ALLOW_ORIGINS")
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{allowOrigin},
