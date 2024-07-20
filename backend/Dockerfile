@@ -20,7 +20,7 @@ ENV GOOS=linux
 ENV GOARCH=amd64
 
 # Build the application
-RUN go build -o /usr/local/bin/myapp ./main.go ./router.go
+RUN go build -tags timetzdata -o /usr/local/bin/myapp ./main.go ./router.go
 
 # Final stage
 FROM alpine:latest
