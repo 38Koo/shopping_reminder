@@ -7,6 +7,7 @@ import {
   HStack,
   Input,
   Label,
+  Text,
   VStack,
 } from "@yamada-ui/react";
 import { DatePicker } from "@yamada-ui/calendar";
@@ -30,7 +31,7 @@ export const ReportCardForSP = ({ mapIndex }: ReportCardForSPProps) => {
       <VStack w="100%" justifyContent="space-evenly">
         <FormControl>
           <HStack gap="1" align={"end"}>
-            <Label width="60px" mr={0}>
+            <Label width="70px" mr={0}>
               購入数:
             </Label>
             <Controller
@@ -50,7 +51,7 @@ export const ReportCardForSP = ({ mapIndex }: ReportCardForSPProps) => {
         </FormControl>
         <FormControl>
           <HStack gap="1" align={"end"}>
-            <Label width="60px" mr={0}>
+            <Label width="70px" mr={0}>
               価格:
             </Label>
             <Controller
@@ -68,15 +69,23 @@ export const ReportCardForSP = ({ mapIndex }: ReportCardForSPProps) => {
                 ?.message}
           </ErrorMessage>
         </FormControl>
-        <FormControl>
-          <HStack gap="1" align={"end"}>
-            <Label width="60px" mr={0}>
+        {/* // NOTE: Accordionの中でFormControlを使うと子要素の
+        overflow:visibleが効かなくなるのでBoxで代用する */}
+        <Box>
+          <HStack gap="1">
+            <Label width="70px" mr={0}>
+              {/* // `NOTE: FormControlを使わないと必須マークに色がつかない */}
               購入日:
+              <Text color="red" display="inline-block" pl={1}>
+                *
+              </Text>
             </Label>
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}
               control={formMethods.control}
-              render={({ field }) => <DatePicker width="200px" {...field} />}
+              render={({ field }) => (
+                <DatePicker width="200px" today {...field} />
+              )}
             />
           </HStack>
           <ErrorMessage>
@@ -84,7 +93,7 @@ export const ReportCardForSP = ({ mapIndex }: ReportCardForSPProps) => {
               formMethods.formState.errors.report?.[mapIndex]?.PurchaseDate
                 ?.message}
           </ErrorMessage>
-        </FormControl>
+        </Box>
       </VStack>
     </Box>
   );

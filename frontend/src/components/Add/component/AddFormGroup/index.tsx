@@ -56,7 +56,7 @@ export const AddFormGroup = () => {
       onError={() => alert("エラーが発生しました")}
     >
       <Stack
-        minW="768px"
+        minW={{ base: "768px", md: "370px" }}
         width="auto"
         padding="3rem"
         border="solid 1px #e5e7eb"
@@ -93,7 +93,7 @@ export const AddFormGroup = () => {
           </Label>
           <Input
             type="number"
-            placeholder="複数購入した場合は、合計金額を入力してください"
+            placeholder="合計金額を入力してください"
             {...register("price")}
           />
           <ErrorMessage>{errors.price && errors.price.message}</ErrorMessage>
@@ -117,6 +117,7 @@ export const AddFormGroup = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                today
               />
             )}
           />

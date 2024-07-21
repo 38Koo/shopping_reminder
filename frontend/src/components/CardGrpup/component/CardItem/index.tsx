@@ -21,7 +21,13 @@ type CardItemProps = {
 export const CardItem = ({ data }: CardItemProps) => {
   return (
     <GridItem minW="250px">
-      <Card size="md" bgColor="white" height="350px" position="relative">
+      <Card
+        size="md"
+        bgColor="white"
+        height="350px"
+        position="relative"
+        px={{ base: "1rem", md: "2rem" }}
+      >
         <CardHeader>
           <Heading as="h3" size="md">
             {data.item.itemName}

@@ -83,7 +83,9 @@ export const ReportCardForPC = ({ mapIndex }: ReportCardForPCProps) => {
             <Controller
               name={`report.${mapIndex}.PurchaseDate`}
               control={formMethods.control}
-              render={({ field }) => <DatePicker width="200px" {...field} />}
+              render={({ field }) => (
+                <DatePicker width="200px" today {...field} />
+              )}
             />
           </HStack>
           <ErrorMessage>

@@ -7,30 +7,30 @@ import {
   HStack,
   Input,
   Label,
-  Text,
   VStack,
   useDisclosure,
 } from "@yamada-ui/react";
 import { Controller, Form, useForm } from "react-hook-form";
-import {
-  EditLogFormType,
-  editLogsFormSchema,
-} from "../../types/EditLogsFormType";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { Icon } from "@yamada-ui/fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { DeleteLogModal } from "../DeleteLogModal";
+import {
+  EditLogFormType,
+  editLogsFormSchema,
+} from "../../../types/EditLogsFormType";
+import { DeleteLogModal } from "../../DeleteLogModal";
 
-type EditHistoryFormCardProps = {
+type EditHistoryFormCardForPCProps = {
   data: EditLogFormType;
   token: string | null;
 };
 
-export const EditHistoryFormCard = ({
+export const EditHistoryFormCardForPC = ({
   data,
   token,
-}: EditHistoryFormCardProps) => {
+}: EditHistoryFormCardForPCProps) => {
   const {
     control,
     formState: { errors },
@@ -69,14 +69,14 @@ export const EditHistoryFormCard = ({
       onError={() => alert("エラーが発生しました")}
     >
       <HStack
-        minW="400px"
-        width="auto"
-        padding="3rem"
+        minW={{ base: "400px", md: "300px" }}
+        padding={{ base: "3rem", md: "1rem" }}
         border="solid 1px #e5e7eb"
         borderRadius="8px"
         boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
         align="end"
         position="relative"
+        gap={10}
       >
         <Box position="absolute" top={4} right={6}>
           <Icon icon={faTrashCan} size="xl" color="gray" onClick={onOpen} />
@@ -90,7 +90,7 @@ export const EditHistoryFormCard = ({
         <HStack>
           <VStack>
             <FormControl isInvalid={!!errors.purchaseDate} isRequired>
-              <HStack alignItems="end">
+              <HStack alignItems="end" gap={{ base: 4, md: 1 }}>
                 <Label width="70px">購入日 :</Label>
                 <Controller
                   name="purchaseDate"
@@ -101,6 +101,7 @@ export const EditHistoryFormCard = ({
                         width="150px"
                         {...field}
                         isClearable
+                        today
                         // FIXME: クリアボタン押下時にリセットされない
                         // onClear={() => {
                         //   console.log(1);
@@ -119,7 +120,7 @@ export const EditHistoryFormCard = ({
               </ErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.Price} isRequired>
-              <HStack alignItems="end">
+              <HStack alignItems="end" gap={{ base: 4, md: 1 }}>
                 <Label width="70px">価格 :</Label>
                 <Controller
                   name="Price"
@@ -134,7 +135,7 @@ export const EditHistoryFormCard = ({
               </ErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.Amount} isRequired>
-              <HStack alignItems="end">
+              <HStack alignItems="end" gap={{ base: 4, md: 1 }}>
                 <Label width="70px">数量 :</Label>
                 <Controller
                   name="Amount"
@@ -153,11 +154,9 @@ export const EditHistoryFormCard = ({
             </FormControl>
           </VStack>
         </HStack>
-        <HStack justifyContent="flex-end" width="100px">
-          <Button type="submit" bg="lime" fontWeight="bold" width="64px">
-            Submit
-          </Button>
-        </HStack>
+        <Button type="submit" bg="lime" fontWeight="bold" width="64px">
+          Submit
+        </Button>
       </HStack>
     </Form>
   );

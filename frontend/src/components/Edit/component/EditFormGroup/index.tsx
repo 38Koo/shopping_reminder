@@ -56,7 +56,7 @@ export const EditFormGroup = ({ token, data }: EditFormGroupProps) => {
       onError={() => alert("エラーが発生しました")}
     >
       <Stack
-        minW="600px"
+        minW={{ base: "768px", md: "350px" }}
         width="auto"
         padding="3rem"
         border="solid 1px #e5e7eb"
