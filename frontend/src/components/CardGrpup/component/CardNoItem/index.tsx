@@ -9,6 +9,7 @@ export const CardNoItem = () => {
       justifyContent="center"
       height="60vh"
       width="70%"
+      w="full"
     >
       <Box fontSize={36}>
         <Text>There is No Items.</Text>

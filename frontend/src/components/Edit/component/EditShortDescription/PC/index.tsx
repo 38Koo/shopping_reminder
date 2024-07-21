@@ -1,10 +1,12 @@
 import { Box, HStack, Stack, Text, VStack } from "@yamada-ui/react";
 
-type EditShortDescriptionProps = {
+type EditShortDescriptionForPCProps = {
   data: any; //TODO: 適切な型に修正する
 };
 
-export const EditShortDescription = ({ data }: EditShortDescriptionProps) => {
+export const EditShortDescriptionForPC = ({
+  data,
+}: EditShortDescriptionForPCProps) => {
   return (
     <Box>
       <HStack align="end">
